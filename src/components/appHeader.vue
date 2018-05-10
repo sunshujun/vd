@@ -136,6 +136,7 @@ export default{
               this.showTime=time;
               this.$emit('selfChangeTime',time.split('-').join(''));  //返回MMMMyydd格式的时间
           }
+          this.changeTopTitle(time.split('-').join(''));
         },
         changeMode(type){
                       let oTime='';
@@ -169,7 +170,24 @@ export default{
                                     }
                          }
                      },100);
-          }
+          },
+         changeTopTitle(time){ 
+               let position="";
+               if(this.$route.fullPath.indexOf('index')>-1){
+                position='index';
+               }else if(this.$route.fullPath.indexOf('food')>-1){
+                 position='food';
+               }else{
+                 position='manpower';
+               };
+               if(time.length<5){
+                       document.title=this.$t(position+'Title.year');
+               }else if(time.length<7){
+                       document.title=this.$t(position+'Title.month');
+               }else{
+                      document.title=this.$t(position+'Title.day');
+               }
+          },
       },
       mounted(){ 
         if(this.time.substr(6,2)){

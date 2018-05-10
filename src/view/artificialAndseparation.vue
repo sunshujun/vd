@@ -1,7 +1,12 @@
 <template>
  <div class="artificial">
       <div class="head">
-      	<app-header  @selfChangeTime="changeTime" @selfChangeMode="changeMode" :time="time"></app-header>
+      	<app-header  
+      	    @selfChangeTime="changeTime" 
+      	    @selfChangeMode="changeMode" 
+      	    :isShowSearch="false"
+      	     :time="time">
+      	</app-header>
       </div>
       <div class="body">
       	<app-table-resturant :listData="showData" :webposition="webposition"></app-table-resturant>

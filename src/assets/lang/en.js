@@ -51,7 +51,7 @@ module.exports={
 	sure:'sure',
 	cancel:'cancel',
 	index:'index',
-	manpower:'manpower',
+	manpower:'HR',
 	ope:'Operating hotels',
 	groupin:'Group Rank',
 	area:'Area Rank',

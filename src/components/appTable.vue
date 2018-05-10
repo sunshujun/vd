@@ -11,7 +11,7 @@
  <ul class="table-body font18">
     <li v-for='data in listData'>
         <!-- <span class="font20" @click='changeEchart(data.code)'>{{data.name}}</span> -->
-        <span @click="jump(data.code)" class="font20">{{data.name}}</span>
+        <span @click="jump(data.code)" class="font20"><span>{{data.name}}</span></span>
         <template v-for='(item,index) in data.data' >
         	<span v-if="index==0" :class="{'color-red':parseInt(item)-parseInt(data.data[1])<0}">{{item|formatNum}}</span>
                 <span v-else>{{item|formatNum}}</span>
@@ -116,7 +116,7 @@ export default{
 	    li{
 	    	border-bottom: 1px dashed #d4d7e0;
 	    	display: flex;
-	    	span{
+	    	&>span{
                                     display: inline-block;
 		     height: 100%;
 		     width:0;
@@ -124,13 +124,17 @@ export default{
 		     line-height: .8rem; 
 		     text-align: right; 
 	    	}
-	    	span:first-child{
+	    	&>span:first-child{
 	    	     width: 1.90666667rem; 
+	    	     display:flex;
+	    	     height:.8rem/* 60px */;
+	    	     flex-direction:column;
+	    	     justify-content:center;
 	    	     padding-left:.06666667rem;
 	    	     text-align: left; 
 	    	     flex-grow: 0;
 	    	     border-right: 1px dashed #f4f5f7;
-	    	     background: url(../../static/images/@2x/message@2x.png) no-repeat left center;
+	    	     /* background: url(../../static/images/@2x/message@2x.png) no-repeat left center;
 	    	     background-size: 90%;
 	    	     [data-dpr='3'] &{
 	    	     	background: url(../../static/images/@3x/message@3x.png) no-repeat left center;
@@ -138,6 +142,11 @@ export default{
 	    	     }
 	    	     [data-dpr='1'] &{
 	    	     	background-size: 85%;
+	    	     } */
+	    	     span{
+	    	     	display:inline-block;
+	    	     	width:100%;
+	    	     	line-height:1; 
 	    	     }
 	    	}
 	    	span:last-child{

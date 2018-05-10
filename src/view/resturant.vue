@@ -104,15 +104,6 @@ let day=timeNow.getDate()>9?timeNow.getDate():'0'+(timeNow.getDate()-1);
                }
                this.getData();
       },
-      changeTopTitle(){ 
-               if(this.time.length<5){
-                       document.title=this.$t(this.position+'Title.year');
-               }else if(this.time.length<7){
-                       document.title=this.$t(this.position+'foodTitle.month');
-               }else{
-                      document.title=this.$t(this.position+'foodTitle.day');
-               }
-          },
       sure(){
         this.getData();
       },
@@ -161,10 +152,7 @@ let day=timeNow.getDate()>9?timeNow.getDate():'0'+(timeNow.getDate()-1);
         },
        changeTime(time){
            this.time=time;
-           this.getData();
-           /*if(this.position=='index'){
-                 this.getFilters();
-           }*/
+           this.getData(); 
         },
         changeMode(mode){
                  this.modeType=mode;
@@ -277,10 +265,10 @@ let day=timeNow.getDate()>9?timeNow.getDate():'0'+(timeNow.getDate()-1);
              margin:0 auto .4rem;
              border-radius: .24rem;
              border:1px solid #a4acc2;
-             background:transparent;
+             background:#a4acc2;
              line-height: .48rem;
              text-align: center;
-             color:#fff;
+             color:#2b4177;
            }
            .btn-first{
             margin-left:2.93333333rem/* 220px */;

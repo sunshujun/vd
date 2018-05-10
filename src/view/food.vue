@@ -119,21 +119,11 @@ export default{
           changeTime(time){
                 this.time=time;
                 window.selectTime=time;
-                this.getData();
-                this.changeTopTitle();
+                this.getData(); 
           },
           changeLang(){
                 this.modeName=this.$t("group")+this.$t("budget");
                 this.getData();
-          },
-          changeTopTitle(){ 
-               if(this.time.length<5){
-                       document.title=this.$t('foodTitle.year');
-               }else if(this.time.length<7){
-                       document.title=this.$t('foodTitle.month');
-               }else{
-                      document.title=this.$t('foodTitle.day');
-               }
           },
           jump(type){
                    this.$router.push("/resturant?position=food&iscomplete="+type+"&time="+this.time+'&modeType='+this.modeType)
@@ -177,7 +167,6 @@ export default{
 	},
         mounted(){
           this.getData();
-          this.changeTopTitle();
         }
 }
 </script>

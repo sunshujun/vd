@@ -14,7 +14,7 @@
                 <p>
                    <span v-for="(value,key) in titles.title" :class="{'active':codeNow==titles.titleCode[key]}"></span>
                 </p>
-                <div class="bar" style="left:0"></div>
+                <!-- <div class="bar" style="left:0"></div> -->
         </div>
   </div>
 </template>
@@ -47,7 +47,8 @@ export default{
     	}, 
     },
     mounted(){
-           document.body.addEventListener('touchstart', function () {
+          /* 背景滚动条方法
+          document.body.addEventListener('touchstart', function () {
            });
            let oTitle=document.getElementsByClassName("wrapTitle")[0]; 
            let oU=oTitle.querySelector(".resturant");
@@ -57,7 +58,7 @@ export default{
            let inWidth=oU.clientWidth;
            oTitle.addEventListener('scroll',function(event){
                     oBar.style.left=oPosition.clientWidth*3/7*(oTitle.scrollLeft/(inWidth-wrapWidth))+'px'
-           })
+           })*/
     }
 }
 </script>
@@ -72,11 +73,11 @@ export default{
         display: none;
         }
        .position{
-          height: .13333333rem/* 10px */; 
+          height:.10666667rem/* 8px */; 
           width: 50%;
           position: relative;
           margin:0 auto .18666667rem;
-          border-radius:.06666667rem/* 5px */;
+          border-radius:.05333333rem/* 4px */;
           background:#fff;
           p{
             display: flex;
@@ -86,9 +87,9 @@ export default{
             justify-content:space-around; 
             span{
               display: inline-block;
-              width:.13333333rem/* 10px */;
-              height: .13333333rem/* 10px */;
-              border-radius: .06666667rem/* 5px */;
+              width:.10666667rem/* 8px */;
+              height: .10666667rem/* 8px */;
+              border-radius:.05333333rem/* 4px */;
               background:#d4d7e0;
             }
             .active{

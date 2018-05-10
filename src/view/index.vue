@@ -158,8 +158,7 @@ export default{
           changeTime(time){ 
                this.time=time; 
                window.selectTime=time;
-               this.getData();
-               this.changeTopTitle();
+               this.getData(); 
           },
           changeLang(){ 
                  this.modeName=this.$t("group")+this.$t("budget");
@@ -176,15 +175,6 @@ export default{
                   }).catch((error)=>{
                     alert(error)
                   })
-          },
-          changeTopTitle(){
-               if(this.time.length<5){
-                       document.title=this.$t('indexTitle.year');
-               }else if(this.time.length<7){
-                       document.title=this.$t('indexTitle.month');
-               }else{
-                      document.title=this.$t('indexTitle.day');
-               }
           },
           jump(type){
               let url="/resturant?position=index&iscomplete="+type+"&time="+this.time+'&modeType='+this.modeType
@@ -254,8 +244,7 @@ export default{
            'app-ecahrt':appEcharts,
 	},
         mounted(){
-           this.getData();
-           this.changeTopTitle(); 
+           this.getData(); 
         }
 }
 </script>

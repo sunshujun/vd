@@ -201,8 +201,9 @@ export default{
  methods:{
    setOption(){
        let seriesData=[];
-       let legendData=[]
-       var that=this;
+       let legendData=[];
+       let isTwo=false;// 看是否有传入预测值，默认没有
+       let that=this;
 
         let dpr=document.getElementsByTagName("html")[0].getAttribute("data-dpr");
        //根据dpr来设置echart中字体大小
@@ -238,11 +239,12 @@ export default{
             json.stack='总量';
           };*/
        	 if(that.option.isFilling){
-                   json.areaStyle= {color:this.colorLinear[index]}  
+                   json.areaStyle= {color:this.colorLinear[isTwo?(index+1):index]}
           }
        	 legendData.push({name:item.name,icon:'rect'});
          seriesData.push(json);
-          if(item.isTwo){   //如果该条数据是实际与预估
+          if(item.isTwo){   //如果该条数据是实际与预测
+                isTwo=true;
                 legendData.push({name:item.name2,icon:'rect'});
                 seriesData.push({
                   name:item.name2,
@@ -251,16 +253,17 @@ export default{
                   areaStyle:{color:this.colorLinear[index]},
                   data:[],
                 });
+                console.log(this.optionLine.color[index+1]);
                this.optionLine.visualMap={
                                                                     show: false,
                                                                     dimension: 0,
                                                                     pieces: [{
-                                                                        lte:item.startIndex,
+                                                                        lte:item.startIndex-1,
                                                                         color:this.optionLine.color[index]
                                                                     }, {
-                                                                        gt:item.startIndex,
+                                                                        gt:item.startIndex-1,
                                                                         lte:item.data.length,
-                                                                        color: this.optionLine.color[index+1]
+                                                                        color:this.optionLine.color[index+1]
                                                                     }],
                                                                     seriesIndex:index,
                                                                 }
@@ -268,7 +271,7 @@ export default{
                         let html=params[0].axisValue+'<br/>';
                         let data=item;
                         params.forEach((item,index)=>{
-                            if(item.dataIndex>data.startIndex&&item.seriesName==data.name){
+                            if(item.dataIndex>(data.startIndex-1)&&item.seriesName==data.name){
                               html+=item.marker+data.name2+":"+item.value+"<br/>"
                             }else{
                               html+=item.marker+item.seriesName+":"+item.value+"<br/>"
