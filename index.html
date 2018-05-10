@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     <meta charset="utf-8"> 
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta content="telephone=no,email=no" name="format-detection"> 
+    <script type="text/javascript" src="./static/js/flexible.js"></script>
+    <!-- <script type="text/javascript" src="./static/js/flexible_css.js"></script> -->
+    <script type="text/javascript" src="./static/js/watchResize.js"></script>
+    <link rel="apple-touch-icon" href="favicon.png"> <!--iphone和ipod上创建快捷键时使用-->
+    <link rel="Shortcut Icon" href="favicon.png" type="image/x-icon">  <!--Shortcut Icon 就是在网址列前面出现的Icon-->
+    <!-- <link rel="stylesheet" type="text/css" href="./static/css/flexible.css"> -->
+    <link rel="stylesheet" type="text/css" href="./static/css/reset.css"> 
+    <link rel="stylesheet" type="text/css" href="./static/font/iconfont.css">
+    <style type="text/css">
+           /* 此处为修改vux中的时间选择插件样式 */
+           .scroller-component{
+              height: 2.6rem/* 195px */ !important; 
+            }
+            .scroller-mask{
+                    background-size:100% .86666667rem/* 65px */ !important;
+              }
+              .scroller-indicator{
+                height: .86666667rem/* 65px */ !important;
+                top:.86666667rem/* 65px */ !important;
+                background-image: none !important;
+                padding:.04rem 0 !important;
+                border-top:1px solid #d0d0d0;
+                border-bottom:1px solid #d0d0d0;
+              }
+              .scroller-item{
+                height: .86666667rem/* 65px */ !important;
+                line-height: .86666667rem/* 65px */ !important;
+                font-size: .4rem !important;
+              }
+    </style>
+    <script type="text/javascript">
+        window.langgroup='cn';
+        let timeNow=new Date();
+        let year=timeNow.getFullYear();
+        let month=(timeNow.getMonth()+1)>9?(timeNow.getMonth()+1):'0'+(timeNow.getMonth()+1);
+        let day=timeNow.getDate()>9?timeNow.getDate():'0'+(timeNow.getDate()-1);
+        window.selectTime=year+month+day+'';
+    </script>
+    <title>万达移动端</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- built files will be auto injected --> 
+  </body>
+</html>
