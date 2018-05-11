@@ -26,7 +26,7 @@ module.exports={
 	roomsrev:'Rooms Rev',
 	fbrev:'F&B Rev',
 	otherrev:'Other Rev',
-	fd:'F&D',
+	fd:'F&B',
 	add:'ADD',
 	chineserest:'Chinese Rest', 
 	specialty:'Specialty Rest',

@@ -12,9 +12,16 @@
     <li v-for='data in listData'>
         <!-- <span class="font20" @click='changeEchart(data.code)'>{{data.name}}</span> -->
         <span @click="jump(data.code)" class="font20"><span>{{data.name}}</span></span>
-        <template v-for='(item,index) in data.data' >
+        <!-- <template v-for='(item,index) in data.data' >
         	<span v-if="index==0" :class="{'color-red':parseInt(item)-parseInt(data.data[1])<0}">{{item|formatNum}}</span>
                 <span v-else>{{item|formatNum}}</span>
+        </template> -->
+        <template v-if="data.data">
+        	         <span  :class="{'color-red':parseInt(data.data[0])-parseInt(data.data[1])<0}">{{data.data[0]|formatNum}}</span>
+	        <span >{{data.data[1]|formatNum}}</span>
+	        <span  :class="{'color-red':parseInt(data.data[2])<100}">{{data.data[2]|formatNum}}</span>
+	        <span >{{data.data[3]|formatNum}}</span>
+	        <span  :class="{'color-red':parseInt(data.data[4])<0}">{{data.data[4]|formatNum}}</span>
         </template>
         <span v-if="webposition=='fooddetail'&&(data.code=='R1200'||data.code=='R1216')" ></span>
         <span v-else @click="jump(data.code)" ><i class="iconfont icon-52"></i></span>

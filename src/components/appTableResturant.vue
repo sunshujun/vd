@@ -5,7 +5,7 @@
      	<div class="right font16">
      		<p :class="{'foodDetail':webposition=='foodDetail'}"><span v-for='item in showTitle.secondTitle'>{{item}}</span></p>
 	     	<p v-if="webposition=='resturant'">
-	     	         <span  v-for="(title,index) in showTitle.thirdTitle" @click='sort(index)'>{{title}}</span>
+	     	         <span  v-for="(title,index) in showTitle.thirdTitle" @click='sort(index)'>{{title}}<i class="iconfont icon-paixu"></i></span>
 	     	</p>
                 <p v-else style="padding-right:0">
                  <span  v-for="(title,index) in showTitle.thirdTitle" >{{title}}</span>

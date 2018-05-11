@@ -245,6 +245,7 @@ let day=timeNow.getDate()>9?timeNow.getDate():'0'+(timeNow.getDate()-1);
       	   select{
       	          display: block;
       	          height: 100%;
+                  width:90%;
       	          margin:0 auto;
       	          padding-right: .33333333rem; 
       	          background: transparent url(../../static/images/@2x/down@2x.png) no-repeat right center;

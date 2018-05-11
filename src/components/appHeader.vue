@@ -53,7 +53,7 @@ export default{
              default:true
            },
            time:{
-            type:String,
+            type:String, //接收返回的时间都是YYYYMMDD格式，没有中划线
             default:''
            },
            isHiddenDay:{   //是否显示日历部分日选择部分
@@ -80,6 +80,7 @@ export default{
      },
      watch:{
       time(){
+        this.changeTopTitle(this.time); //在改变时间之前修改title
         if(this.time.substr(6,2)){
           this.showTime=(this.time.substr(0,4)+'-'+this.time.substr(4,2)+(this.isHiddenDay?'':'-'+this.time.substr(6,2)));
         }else if(this.time.substr(4,2)){
@@ -189,21 +190,21 @@ export default{
                }
           },
       },
-      mounted(){ 
+      mounted(){
+        this.changeTopTitle(this.time); //在改变时间之前修改title
         if(this.time.substr(6,2)){
           this.showTime=(this.time.substr(0,4)+'-'+this.time.substr(4,2)+(this.isHiddenDay?'':'-'+this.time.substr(6,2)));
         }else if(this.time.substr(4,2)){
           this.showTime=(this.time.substr(0,4)+'-'+this.time.substr(4,2));
-         
           //this.timeNow=this.timeNow+'-15'; //时间选择插件只传入年月，日那一列则不会渲染出来，所以补足日
          this.changeMode('month');
         }else{
           this.showTime=this.time;
           //this.timeNow=this.timeNow+'-06-15'; //时间选择插件只传入年，月日那两列列则不会渲染出来，所以补足月日
           this.changeMode('year');
-        } 
+        }
          if(this.isHiddenDay){
-             this.changeMode('day');
+             this.changeMode('month');
          }
       }
 }
@@ -306,7 +307,7 @@ export default{
         }
         .selectTime{  
             position:absolute;
-            top:.13333333rem;
+            top:.02666667rem/* 2px */;
             left:0;
             right:0; 
             padding-left:.2rem;

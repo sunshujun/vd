@@ -11,7 +11,8 @@
 </div> 
 </template>
 <script >
-// 引入基本模板
+import {cookie} from 'vux'
+/*// 引入基本模板
 let echarts = require('echarts/lib/echarts')
 // 引入柱状图组件
 require('echarts/lib/chart/line')
@@ -19,7 +20,8 @@ require('echarts/lib/chart/line')
 require('echarts/lib/component/tooltip');
 require('echarts/lib/component/title');
 require('echarts/lib/component/legend');
-require('echarts/lib/component/visualMap');
+require('echarts/lib/component/markArea');
+require('echarts/lib/component/visualMap');*/
 export default{
  name:'echart',
  props:{
@@ -27,37 +29,38 @@ export default{
             default:'echartArea',
        },
        option:{
-       	type:Object,
-       	default:()=>{
-       		return{
-       		isSmooth:true,  //折线图是否曲线化
-       		isFilling:true,// 折线图区域是否填充
-       		headIcon:null, //表头icon类名  light和user
-       		isShowHead:true, //是否要显示title
-       		time:'', // 需要显示的时间
-       		title:'', //表头名
+        type:Object,
+        default:()=>{
+          return{
+          isSmooth:true,  //折线图是否曲线化
+          isFilling:true,// 折线图区域是否填充
+          headIcon:null, //表头icon类名  light和user
+          isShowHead:true, //是否要显示title
+          time:'', // 需要显示的时间
+          title:'', //表头名
                sumdata:'',//当前时间显示的数据
-       		data:'',//echart数据 
-       		xAxis:[], //echart x轴各项名
-       		//style:{'height':'3.6rem','width':'8.66666667rem'}
-       	              }
+          data:'',//echart数据 
+          xAxis:[], //echart x轴各项名
+          //style:{'height':'3.6rem','width':'8.66666667rem'}
+                      }
                 },
        },
        echartStyle:{
-       	type:Object,
-       	default:()=>{
-       		return{
-	               height:'3.6rem',
-	 		width:'8.66666667rem', 
-       	               }
+        type:Object,
+        default:()=>{
+          return{
+                 height:'3.6rem',
+      width:'8.66666667rem', 
+                       }
                  }
        }
  },
  data(){
- 	return{
+  return{
                 myChart:null,
-                xMonth:['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'],
- 	      colorLinear:[{
+                xMonthcn:['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'],
+                xMonthen:['January','February','March','April','May','June','July','August','September','October','November','December'],
+        colorLinear:[{
                     type:'linear',
                     x:0,
                     y:0,
@@ -104,81 +107,80 @@ export default{
                  }
                 ],//区域填充颜色渐变值，对应下面四个颜色值
                 optionLine:{
-		    color:["#009eff","#19ff00","#ff9900","#ff6600"],
-		    tooltip : {
-		        trigger: 'axis',
-		        /*axisPointer: {
-		            type: 'cross',
-		            label: {
-		                backgroundColor: '#6a7985'
-		            }
-		        },*/
+        color:["#009eff","#19ff00","#ff9900","#ff6600"],
+        tooltip : {
+            trigger: 'axis',
+            /*axisPointer: {
+                type: 'cross',
+                label: {
+                    backgroundColor: '#6a7985'
+                }
+            },*/
                         textStyle:{}
-		    },
-		    legend: {
-		       right:'2%',
-		       textStyle:{
-		           color:'#777',
-		        }, 
+        },
+        legend: {
+           right:'2%',
+           textStyle:{
+               color:'#777',
+            },
                        //selectedMode:false //禁用点击
-		    },
-		    toolbox: {
-		        feature: {
-		            saveAsImage: {}
-		        }
-		    },
-		    grid: {
-		        left: '2%',
-		        right: '4%',
-		        bottom: '1%',
-                       top:'18%',
-		        containLabel: true
-		    },
-		    xAxis : {
-		            type : 'category',
-		            boundaryGap : false,
-		           // data : ['周一','周二','周三','周四','周五','周六','周日'],
-		            /*offset:40,*/   //只能使周一周二下移，x轴线不能下移
-		            position:'bottom',
-		            axisLine :{
-		            	 symbol:'circle',
-		            	 symbolSize :[10,10],
-		                 lineStyle:{
-		                 	width:'2',
-		                 	color:'#999'
-		                 }
-		            },
+        },
+        toolbox: {
+            feature: {
+                saveAsImage: {}
+            }
+        },
+        grid: {
+            left: '2%',
+            right: '4%',
+            bottom: '1%',
+            top:'18%',
+            containLabel: true
+        },
+        xAxis : {
+                type : 'category',
+                boundaryGap : false,
+               // data : ['周一','周二','周三','周四','周五','周六','周日'],
+                /*offset:40,*/   //只能使周一周二下移，x轴线不能下移
+                position:'bottom',
+                axisLine :{
+                   symbol:'circle',
+                   symbolSize :[10,10],
+                     lineStyle:{
+                      width:'2',
+                      color:'#999'
+                     }
+                },
                            axisLabel:{
                             
                            },
-		            axisTick :{
-		            	show:false
-		            },
+                axisTick :{
+                  show:false
+                },
                            splitNumber:6
-		        },
-		    yAxis : {
-		            show:true ,
-		            type : 'value',
-		            axisLine :{
-		               show:false,
-		                lineStyle:{
-		                     color:'#999'
-		                 }
-		            },
+            },
+        yAxis : {
+                show:true ,
+                type : 'value',
+                axisLine :{
+                   show:false,
+                    lineStyle:{
+                         color:'#999'
+                     }
+                },
                            axisLabel:{
-
                            },
-		            axisTick :{
-		            	show:false
-		            },
-		            splitLine:{
-		            	lineStyle:{
-		            	   type:'dashed'
-		            	}
-		            }
-		        },
-		},
- 	}
+                axisTick :{
+                  show:false
+                },
+                splitLine:{
+                  lineStyle:{
+                     type:'dashed'
+                  }
+                }
+            },
+    },
+  }
  },
  mounted(){
    this.setOption(); 
@@ -194,20 +196,20 @@ export default{
  },
  watch:{
     option(){
-    	this.setOption(); 
-                this.drawLine();
+      this.setOption(); 
+      this.drawLine();
     }
  },
  methods:{
    setOption(){
        let seriesData=[];
        let legendData=[];
+       let data=[];
        let isTwo=false;// 看是否有传入预测值，默认没有
        let that=this;
-
-        let dpr=document.getElementsByTagName("html")[0].getAttribute("data-dpr");
+       let dpr=document.getElementsByTagName("html")[0].getAttribute("data-dpr");
        //根据dpr来设置echart中字体大小
-       if(dpr==3){ 
+       if(dpr==3){
              this.optionLine.legend.itemWidth=34;
              this.optionLine.legend.itemHeight=28;
              this.optionLine.xAxis.axisLabel.fontSize=28;
@@ -222,26 +224,64 @@ export default{
              this.optionLine.tooltip.textStyle.fontSize=20;
             this.optionLine.legend.textStyle.fontSize=20;
        }
-
-       this.option.data.forEach((item,index)=>{
-         	let json={
-                    name:item.name,
-  	            type:'line',
-  	            smooth: that.option.isSmooth, 
-  	            data:item.data,
-         	}; 
-               if(dpr==3){ 
-                   json.symbolSize=12
-               }else{
-                   json.symbolSize=8
-               }
-         /* if(that.option.isSmooth){   //需要填充的报表就需要堆叠数据显示
-            json.stack='总量';
-          };*/
-       	 if(that.option.isFilling){
+       if(this.option.data[0]&&this.option.data[0].isTwo){
+         data=[...this.option.data];
+         let two=data.shift(); 
+         let data1=[];
+         let data2=[];
+         for(let i=0;i<two.data.length;i++){  //取实际值 ,实际值与预测值重叠一个
+             if(i<two.startIndex+1){
+                  data1.push(two.data[i]);
+             }else{
+                  data1.push('');
+             }
+         }
+         for(let z=0;z<two.data.length;z++){  //取预测值
+             if(z>two.startIndex-1){
+                  data2.push(two.data[z]);
+             }else{
+                  data2.push('');
+             }
+         }
+         data.unshift({
+           name:two.name2,
+          data:data2
+         })
+          data.unshift({
+           name:two.name,
+           data:data1
+         }); 
+          this.optionLine.tooltip.formatter=function(params){
+                        let html=params[0].axisValue+'<br/>';
+                        let data=two;
+                        params.forEach((item,index)=>{
+                            if(item.dataIndex>(data.startIndex-1)&&item.seriesName==data.name){ 
+                            }else if(item.dataIndex<(data.startIndex)&&item.seriesName==data.name2){ 
+                            }else{
+                                  html+=item.marker+item.seriesName+":"+item.value+"<br/>"
+                            }
+                        })
+                        return html;
+                }
+       }else{
+        data=[...this.option.data];
+       }
+       data.forEach((item,index)=>{
+          let json={
+                name:item.name,
+                type:'line',
+                smooth: that.option.isSmooth,
+                data:item.data,
+          };
+         if(dpr==3){
+             json.symbolSize=12
+         }else{
+             json.symbolSize=8
+         }
+         if(that.option.isFilling){
                    json.areaStyle= {color:this.colorLinear[isTwo?(index+1):index]}
           }
-       	 legendData.push({name:item.name,icon:'rect'});
+         legendData.push({name:item.name,icon:'rect'});
          seriesData.push(json);
           if(item.isTwo){   //如果该条数据是实际与预测
                 isTwo=true;
@@ -250,11 +290,10 @@ export default{
                   name:item.name2,
                   type:'line',
                   smooth:true,
-                  areaStyle:{color:this.colorLinear[index]},
+                  areaStyle:{color:this.colorLinear[index+1]},
                   data:[],
-                });
-                console.log(this.optionLine.color[index+1]);
-               this.optionLine.visualMap={
+                }); 
+              /* this.optionLine.visualMap={
                                                                     show: false,
                                                                     dimension: 0,
                                                                     pieces: [{
@@ -266,23 +305,10 @@ export default{
                                                                         color:this.optionLine.color[index+1]
                                                                     }],
                                                                     seriesIndex:index,
-                                                                }
-                this.optionLine.tooltip.formatter=function(params){
-                        let html=params[0].axisValue+'<br/>';
-                        let data=item;
-                        params.forEach((item,index)=>{
-                            if(item.dataIndex>(data.startIndex-1)&&item.seriesName==data.name){
-                              html+=item.marker+data.name2+":"+item.value+"<br/>"
-                            }else{
-                              html+=item.marker+item.seriesName+":"+item.value+"<br/>"
-                            }
-                        })
-                        return html;
-                }
+                                                                }*/ 
           }
        })
        this.optionLine.series=seriesData;
-
        let arr=[]; 
        if(this.option.time.length<5){
           for(var i=0;i<5;i++){
@@ -290,7 +316,11 @@ export default{
           }
           this.optionLine.xAxis.data=arr;
        }else if(this.option.time.length<7){
-           this.optionLine.xAxis.data=this.xMonth;
+          if(cookie.get('langSet')=='cn'){
+           this.optionLine.xAxis.data=this.xMonthcn;
+          }else{
+            this.optionLine.xAxis.data=this.xMonthen;
+          }
        }else{
            switch(parseInt(this.option.time.substr(4,2))) {
              case 1:
@@ -313,18 +343,25 @@ export default{
                 this.optionLine.xAxis.data=this.makeXday(((year%4==0&&year%100!=0)||year%400==0)?29:28);
            } 
        }
-       this.optionLine.legend.data=legendData; 
+       this.optionLine.legend.data=legendData;
    },
    drawLine(){
        // 基于准备好的dom，初始化echarts实例 
       this.myChart = echarts.init(document.getElementById(this.echartId));
-      this.myChart.setOption(this.optionLine);
+      this.myChart.setOption(this.optionLine,true);
    },
    makeXday(i){
+      let date=new Date();
+      let time1=this.option.time.substr(0,4)+'-'+this.option.time.substr(4,2); 
       let arr=[];
-      for(var t=0;t<i;t++){
-        arr.push(t+1)
-      } 
+      for(var t=1;t<i+1;t++){
+         date.setTime(Date.parse(time1+'-'+(t>9?t:('0'+t))));
+         if(date.getDay()==0||date.getDay()==6){
+              arr.push({value:t,textStyle:{color:'red'}});
+         }else{
+              arr.push({value:t});
+         } 
+      }
       return arr;
    }
  }
@@ -333,55 +370,55 @@ export default{
 <style lang="less" scoped>
  .echarts{
      h1{
-     	position: relative;
-     	height: .53333333rem;
-     	line-height: .53333333rem;
-     	letter-spacing: .06666667rem;
+      position: relative;
+      height: .53333333rem;
+      line-height: .53333333rem;
+      letter-spacing: .06666667rem;
         padding-right: .30666667rem;
-     	&.title{
-     	       padding-left: .13333333rem;
-     	}
-     	&.title:before{
-     		display:inline-block;
-     		content: '';
-     		width:.05333333rem;
-     		height: .29333333rem;
-     		border-radius: .02666667rem;
-     		background: #c9d5ed;
-     		position: absolute;
-     		top:50%;
-     		left:0;
-     		margin-top:-.14666667rem;
-     		margin-right:.14666667rem;
-     	}
-     	i{
-     	  display: inline-block;
-     	   width: .4rem;
-     	   height: .46666667rem;
-     	   margin-right: .18666667rem;
-     	   vertical-align: middle; 
-     	}
-     	.light{
-     	   background: url(../../static/images/@2x/lightsmall@2x.png) no-repeat center center;
-     	   [data-dpr='3'] &{
-     	   	background: url(../../static/images/@3x/lightsmall@3x.png) no-repeat center center;
-     	   }
+      &.title{
+             padding-left: .13333333rem;
+      }
+      &.title:before{
+        display:inline-block;
+        content: '';
+        width:.05333333rem;
+        height: .29333333rem;
+        border-radius: .02666667rem;
+        background: #c9d5ed;
+        position: absolute;
+        top:50%;
+        left:0;
+        margin-top:-.14666667rem;
+        margin-right:.14666667rem;
+      }
+      i{
+        display: inline-block;
+         width: .4rem;
+         height: .46666667rem;
+         margin-right: .18666667rem;
+         vertical-align: middle; 
+      }
+      .light{
+         background: url(../../static/images/@2x/lightsmall@2x.png) no-repeat center center;
+         [data-dpr='3'] &{
+          background: url(../../static/images/@3x/lightsmall@3x.png) no-repeat center center;
+         }
          background-size: contain;
-     	}
-     	.user{
-     	   background: url(../../static/images/@2x/usersmall@2x.png) no-repeat center center;
-     	   [data-dpr='3'] &{
-     	   	background: url(../../static/images/@3x/usersmall@3x.png) no-repeat center center;
-     	   }
+      }
+      .user{
+         background: url(../../static/images/@2x/usersmall@2x.png) no-repeat center center;
+         [data-dpr='3'] &{
+          background: url(../../static/images/@3x/usersmall@3x.png) no-repeat center center;
+         }
           background-size: contain;
-     	}
+      }
      }
      span{
-     	
+      
      }
      .time{
-     	  float: right;
-     	}
+        float: right;
+      }
      .echartArea{
        margin:0 auto;
      }

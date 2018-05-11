@@ -18,8 +18,8 @@
            <app-ecahrt :option="echartOption2" :echartId="'echartArea2'" :echartStyle="{height:'4.06666667rem',width:'8.86666667rem'}"></app-ecahrt>
         </div>
         <ul class="twoMode clearfix font24">
-        	<li @click="jump('artificial')">{{$t("laboarcost")}}</li>
-        	<li @click="jump('separation')">{{$t("turnover")}}</li>
+        	<li @click="jump('artificial')"><span>{{$t("laboarcost")}}</span></li>
+        	<li @click="jump('separation')"><span>{{$t("turnover")}}</span></li>
         </ul>
      </div>
  </div>
@@ -153,8 +153,11 @@ export default{
   	box-shadow:  0 .06666667rem .13333333rem .13333333rem #deeaef;
   	li{
   	  width: 50%;
-  	  line-height: 1.33333333rem;
+  	  height: 1.33333333rem;
   	  float: left;
+         display:flex;
+         flex-direction:column;
+         justify-content:center;
   	}
   	li:nth-child(1){
   		padding-left: 2rem;

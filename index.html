@@ -4,13 +4,11 @@
      <meta charset="utf-8"> 
     <meta content="yes" name="apple-mobile-web-app-capable">
     <meta content="yes" name="apple-touch-fullscreen">
-    <meta content="telephone=no,email=no" name="format-detection"> 
+    <meta content="telephone=no,email=no" name="format-detection">
     <script type="text/javascript" src="./static/js/flexible.js"></script>
-    <!-- <script type="text/javascript" src="./static/js/flexible_css.js"></script> -->
+   <script type="text/javascript" src="./static/js/echarts.min.js"></script>
+   <!-- 该echart是定制化的组件，不包括echart全部功能-->
     <script type="text/javascript" src="./static/js/watchResize.js"></script>
-    <link rel="apple-touch-icon" href="favicon.png"> <!--iphone和ipod上创建快捷键时使用-->
-    <link rel="Shortcut Icon" href="favicon.png" type="image/x-icon">  <!--Shortcut Icon 就是在网址列前面出现的Icon-->
-    <!-- <link rel="stylesheet" type="text/css" href="./static/css/flexible.css"> -->
     <link rel="stylesheet" type="text/css" href="./static/css/reset.css"> 
     <link rel="stylesheet" type="text/css" href="./static/font/iconfont.css">
     <style type="text/css">
@@ -40,7 +38,7 @@
         let timeNow=new Date();
         let year=timeNow.getFullYear();
         let month=(timeNow.getMonth()+1)>9?(timeNow.getMonth()+1):'0'+(timeNow.getMonth()+1);
-        let day=timeNow.getDate()>9?timeNow.getDate():'0'+(timeNow.getDate()-1);
+        let day=timeNow.getDate()>9?(timeNow.getDate()-1):'0'+(timeNow.getDate()-1);
         window.selectTime=year+month+day+'';
     </script>
     <title>万达移动端</title>

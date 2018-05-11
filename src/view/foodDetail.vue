@@ -114,8 +114,8 @@ export default{
                              isFilling:true,
                              isShowHead:true,
                              time:this.time,
-                             sumdata:this.sumdata+"("+this.$t('unit.million')+")",
-                             title:this.name+this.foodTitle[this.titleNow]+this.$t('income'),
+                             sumdata:(this.sumdata?this.sumdata:'')+"("+this.$t('unit.million')+")",
+                             title:this.name+" "+this.foodTitle[this.titleNow]+" "+this.$t('income'),
                              data:this.echartData
                        }
                },
