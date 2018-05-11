@@ -47,9 +47,10 @@ export default{
 			}]
 		}
 	},
-	methods:{
+	methods:{ 
 		jump(target,index){
-                                     this.$emit('jump',target); 
+                         document.getElementsByClassName('index-content')[0].scrollTop=0; //每次切换页面，滚到屏幕顶部
+                          this.$emit('jump',target); 
 		}
 	},
        watch:{

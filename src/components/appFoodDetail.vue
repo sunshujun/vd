@@ -17,8 +17,14 @@
                    </div> 
                 </div>
                 <ul class="children font18">
-                   <li v-for="item1 in data.data">
-                       <span v-for="val in item1">{{val | formatNum}}</span>
+                   <li v-for="(item1,index) in data.data">
+                       <!-- <span  v-for="val in item1">{{val | formatNum}}</span>  -->
+                       <template v-if="index==0">
+                             <span :class="{'color-red':parseInt(item1[0])-parseInt(data.data[1][0])<0}">{{item1[0] | formatNum}}</span>
+                             <span>{{item1[1] | formatNum}}</span>
+                             <span>{{item1[2] | formatNum}}</span>
+                       </template>
+                       <span v-else  v-for="val in item1">{{val | formatNum}}</span> 
                    </li>
                 </ul>
               </li>
@@ -43,7 +49,7 @@ export default{
               firstTitle:this.$t('indicator'),
               secondTitle:[this.$t('dayincome')+'('+this.$t('unit.yuan')+')',this.$t('covers'),this.$t('ave')]
             },
-            showData:this.listData.data, 
+            showData:this.listData.data,
       }
    },
    computed:{ 
@@ -180,10 +186,12 @@ export default{
                       line-height: 1;
                     }
 	    	}
-               /* span:nth-child(2n){
-                background-color:rgb(245,245,245); 
-               } */
 	    }
+           &>li:nth-child(2n){
+              .inner1{
+                background-color:#f9f9f9;
+              }
+           }
 	}
  }
 </style>

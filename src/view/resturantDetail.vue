@@ -94,7 +94,6 @@ export default{
       }else{
           url='/DAP/getFoodDetailData.do?date='+this.time+'&budget_type='+this.modeType+'&hotel_name='+encodeURIComponent(encodeURIComponent(this.name))+'&account_code='+this.code+'&type='+cookie.get('langSet')
       }
-      
       this.$axios.get(url).then((res)=>{
         if (res.data.code==200){
              this.echartData=res.data.data.echartData;
@@ -127,14 +126,14 @@ export default{
          this.position=this.$route.query.position;
      }
      if(this.$route.query.code){
-          this.code=this.$route.query.code; 
+          this.code=this.$route.query.code;
      }else{
          this.code=(this.position=='index'?'R1000':'R1200');
      }
-     if(this.$route.query.time){  
+     if(this.$route.query.time){
           this.time=this.$route.query.time;
      }
-     if(this.$route.query.modeType){  
+     if(this.$route.query.modeType){
           this.modeType=this.$route.query.modeType;
      } 
      this.getData();

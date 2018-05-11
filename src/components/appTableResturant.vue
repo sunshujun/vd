@@ -18,7 +18,14 @@
                   <!-- <span @click="changeEchart(data.code)">{{data.name}}</span> -->
                   <span>{{data.name}}</span>
                 </span>
-                <span class="font16" v-for='item in data.data'>{{item | formatNum}}</span>
+                <!-- <span class="font16" v-for='item in data.data'>{{item | formatNum}}</span> -->
+                <template v-if="data.data">
+                         <span  :class="{'color-red':parseInt(data.data[0])-parseInt(data.data[1])<0}">{{data.data[0]|formatNum}}</span>
+                        <span >{{data.data[1]|formatNum}}</span>
+                        <span  :class="{'color-red':parseInt(data.data[2])<100}">{{data.data[2]|formatNum}}</span>
+                        <span >{{data.data[3]|formatNum}}</span>
+                        <span  :class="{'color-red':parseInt(data.data[4])<0}">{{data.data[4]|formatNum}}</span>
+              </template>
                  <span v-if="webposition=='resturant'" @click='jump(data.name)'><i class="iconfont icon-52"></i></span>
                  <span v-else style="width:0"></span>
               </li>

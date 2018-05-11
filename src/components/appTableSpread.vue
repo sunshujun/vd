@@ -13,7 +13,14 @@
 	         <li v-if="data.floor=='root'" class="root">
 	            <!-- <span class="font20" @click="changeEchart(data.code)">{{data.name}}</span> -->
 	            <span class="font20" >{{data.name}}</span>
-	            <span v-for='item in data.data' class="font16">{{item | formatNum}}</span>
+	            <!-- <span v-for='item in data.data' class="font16">{{item | formatNum}}</span> -->
+	             <template v-if="data.data">
+	                         <span  :class="{'color-red':parseInt(data.data[0])-parseInt(data.data[1])<0}">{{data.data[0]|formatNum}}</span>
+	                        <span >{{data.data[1]|formatNum}}</span>
+	                        <span  :class="{'color-red':parseInt(data.data[2])<100}">{{data.data[2]|formatNum}}</span>
+	                        <span >{{data.data[3]|formatNum}}</span>
+	                        <span  :class="{'color-red':parseInt(data.data[4])<0}">{{data.data[4]|formatNum}}</span>
+	              </template>
 	            <span >
 	            	<!-- <i :class='["iconfont",data.open?"icon-52":"icon-54"]'></i> -->
 	            </span> 
@@ -23,7 +30,14 @@
 	        	      <ul>
 	        	      	<li class="second">
 		                    <span class="font20" @click="changeEchart(data.code)">{{data.name}}</span>
-		                    <span v-for='item in data.data' class="font16">{{item | formatNum}}</span>
+		                    <!-- <span v-for='item in data.data' class="font16">{{item | formatNum}}</span> -->
+		                    <template v-if="data.data">
+		                         <span  :class="{'color-red':parseInt(data.data[0])-parseInt(data.data[1])<0}">{{data.data[0]|formatNum}}</span>
+		                        <span >{{data.data[1]|formatNum}}</span>
+		                        <span  :class="{'color-red':parseInt(data.data[2])<100}">{{data.data[2]|formatNum}}</span>
+		                        <span >{{data.data[3]|formatNum}}</span>
+		                        <span  :class="{'color-red':parseInt(data.data[4])<0}">{{data.data[4]|formatNum}}</span>
+		                    </template>
 		                    <span v-if="data.children.length"  @click='spread(index,data.floor,$event)'>
 		                    	<i :class='["iconfont",data.open?"icon-52":"icon-54"]'></i>
 		                    </span>
@@ -39,7 +53,14 @@
 		               	       </div>
 		               	       <div class="right clearfix">
 		               	       	<p v-for='item2 in data.children' class="clearfix font14">
-		               	       		<span v-for='item3 in item2.data'>{{item3 | formatNum}}</span>
+		               	       		<!-- <span v-for='item3 in item2.data'>{{item3 | formatNum}}</span> -->
+		               	       		<template v-if="item2.data">
+				                         <span  :class="{'color-red':parseInt(item2.data[0])-parseInt(item2.data[1])<0}">{{item2.data[0]|formatNum}}</span>
+				                        <span >{{item2.data[1]|formatNum}}</span>
+				                        <span  :class="{'color-red':parseInt(item2.data[2])<100}">{{item2.data[2]|formatNum}}</span>
+				                        <span >{{item2.data[3]|formatNum}}</span>
+				                        <span  :class="{'color-red':parseInt(item2.data[4])<0}">{{item2.data[4]|formatNum}}</span>
+				              </template>
 		               	       		<span v-if="position=='food'"  @click='jump(item2.name)'>
 			                    	    <i class=' iconfont icon-52'></i>
 			                               </span>

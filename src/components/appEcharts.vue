@@ -229,6 +229,7 @@ export default{
          let two=data.shift(); 
          let data1=[];
          let data2=[];
+         let data3=[];
          for(let i=0;i<two.data.length;i++){  //取实际值 ,实际值与预测值重叠一个
              if(i<two.startIndex+1){
                   data1.push(two.data[i]);
@@ -243,6 +244,13 @@ export default{
                   data2.push('');
              }
          }
+         for(let t=0;t<two.startIndex+1;t++){  //取预测值
+             if(t==two.startIndex){
+                  data3.push(two.total);
+             }else{
+                  data3.push('');
+             }
+         }
          data.unshift({
            name:two.name2,
           data:data2
@@ -251,14 +259,24 @@ export default{
            name:two.name,
            data:data1
          }); 
+          seriesData.push({
+            type:'scatter',
+            name:two.name,
+            data:data3
+            //data:['','','','',4500]
+          })
           this.optionLine.tooltip.formatter=function(params){
                         let html=params[0].axisValue+'<br/>';
                         let data=two;
+                        console.log(params);
                         params.forEach((item,index)=>{
-                            if(item.dataIndex>(data.startIndex-1)&&item.seriesName==data.name){ 
-                            }else if(item.dataIndex<(data.startIndex)&&item.seriesName==data.name2){ 
+                            if(item.dataIndex>(data.startIndex-1)&&item.seriesName==data.name&&item.seriesType!='scatter'){ 
+                            }else if(item.dataIndex<data.startIndex&&item.seriesName==data.name2){
+                            }else if(item.dataIndex==data.startIndex&&item.seriesType=='scatter'){
+                              html+=item.marker+item.seriesName+":"+item.value+"<br/>"
+                            }else if(item.dataIndex<data.startIndex&&item.seriesType=='scatter'){ 
                             }else{
-                                  html+=item.marker+item.seriesName+":"+item.value+"<br/>"
+                               html+=item.marker+item.seriesName+":"+item.value+"<br/>"
                             }
                         })
                         return html;
