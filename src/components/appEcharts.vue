@@ -263,13 +263,13 @@ export default{
           seriesData.push({
             type:'scatter',
             name:two.name,
-            z:1,
+            z:5,
+            symbolSize :15,
             data:data3
           })
           this.optionLine.tooltip.formatter=function(params){
                         let html=params[0].axisValue+'<br/>';
                         let data=two;
-                        console.log(params);
                         params.forEach((item,index)=>{
                             if(item.dataIndex>(data.startIndex-1)&&item.seriesName==data.name&&item.seriesType!='scatter'){ 
                             }else if(item.dataIndex<data.startIndex&&item.seriesName==data.name2){

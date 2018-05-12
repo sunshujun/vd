@@ -54,12 +54,13 @@ export default{
 	},
        watch:{
            $route(){
+             document.getElementsByClassName('index-content')[0].scrollTop=0; //每次切换页面，滚到屏幕顶部
               let index=0;
               if(this.$route.fullPath.indexOf('food')>-1){
                  index=1;
-              }else if(this.$route.fullPath.indexOf('manpower')>-1){
+              }else if(this.$route.fullPath.indexOf('manpower')>-1||this.$route.fullPath.indexOf('artandsep')>-1){
                  index=2;
-              } 
+              }
              this.items.forEach(function(item){
               if(item.isActive){
                 item.isActive=false;

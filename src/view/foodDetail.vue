@@ -130,8 +130,7 @@ export default{
           return {data:this.listData.data}
         }
   },
-  mounted(){
-     document.getElementsByClassName('index-content')[0].scrollTop=0; //每次切换页面，滚到屏幕顶部
+  mounted(){ 
      this.name=this.$route.query.name;
      if(this.$route.query.code){    //如果是搜索页面跳转过来使用默认code，其他页面跳转使用传过来的参数
               this.code=this.$route.query.code=='R1200'?'R1211':this.$route.query.code;

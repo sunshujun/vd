@@ -166,7 +166,6 @@ export default{
            'app-ecahrt':appEcharts,
 	},
         mounted(){
-          document.getElementsByClassName('index-content')[0].scrollTop=0; //每次切换页面，滚到屏幕顶部
           this.getData();
         }
 }

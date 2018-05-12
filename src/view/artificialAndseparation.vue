@@ -40,7 +40,6 @@ export default{
 	       'app-table-resturant':appTableResturant,
 	},
 	mounted(){
-	    document.getElementsByClassName('index-content')[0].scrollTop=0; //每次切换页面，滚到屏幕顶部
 	    this.time=this.$route.query.time;
 	   if(this.$route.query.type=='artificial'){
 	   	document.title=this.$t('laboarcost');

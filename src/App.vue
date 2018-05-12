@@ -75,8 +75,12 @@ export default {
 } 
 .font46{
    font-size:44px;
-  }
-
+  } 
+input[type="password"], 
+input[type="text"], 
+select:focus {
+  font-size:26px;
+}
 [data-dpr='3'] {
   .font14{
    font-size:28px;
@@ -104,6 +108,11 @@ export default {
   }
   .font46{
    font-size:74px;
+  }
+  input[type="password"], 
+  input[type="text"], 
+  select:focus {
+    font-size:40px;
   }
 }
 [data-dpr='1'] {
@@ -133,6 +142,11 @@ export default {
   }
   .font46{
    font-size:26px;
+  }
+  input[type="password"], 
+  input[type="text"], 
+  select:focus {
+    font-size:12px;
   }
 }
 /* 
