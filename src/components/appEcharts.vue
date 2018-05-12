@@ -12,11 +12,12 @@
 </template>
 <script >
 import {cookie} from 'vux'
+/*这样引入echart，会比在线定制化的echart.js大很多*/
 /*// 引入基本模板
 let echarts = require('echarts/lib/echarts')
 // 引入柱状图组件
 require('echarts/lib/chart/line')
-// 引入提示框、title组件、legend组件
+// 引入提示框、title组件、legend组件  
 require('echarts/lib/component/tooltip');
 require('echarts/lib/component/title');
 require('echarts/lib/component/legend');
@@ -262,8 +263,8 @@ export default{
           seriesData.push({
             type:'scatter',
             name:two.name,
+            z:1,
             data:data3
-            //data:['','','','',4500]
           })
           this.optionLine.tooltip.formatter=function(params){
                         let html=params[0].axisValue+'<br/>';
@@ -290,6 +291,7 @@ export default{
                 type:'line',
                 smooth: that.option.isSmooth,
                 data:item.data,
+                z:index,
           };
          if(dpr==3){
              json.symbolSize=12

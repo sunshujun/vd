@@ -132,7 +132,7 @@ export default{
         }
    },
    mounted(){
-    cookie.set('userid','1')
+    document.getElementsByClassName('index-content')[0].scrollTop=0; //每次切换页面，滚到屏幕顶部
     this.getHot();
     this.getNearly();
    }
