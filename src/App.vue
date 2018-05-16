@@ -41,6 +41,9 @@ export default {
  },
  mounted(){
    this.$router.push('/index'); 
+   document.body.addEventListener('touchstart',function(event){
+     event.preventDefault();
+   })
  }
 }
 </script>
@@ -76,11 +79,12 @@ export default {
 .font46{
    font-size:44px;
   } 
-input[type="password"], 
-input[type="text"], 
-select:focus {
-  font-size:26px;
+input[type="password"], /*强行设置iphone input框字体大小，防止点击放大页面*/
+input[type="text"],
+select{
+  font-size:32px !important;  
 }
+
 [data-dpr='3'] {
   .font14{
    font-size:28px;
@@ -110,9 +114,9 @@ select:focus {
    font-size:74px;
   }
   input[type="password"], 
-  input[type="text"], 
-  select:focus {
-    font-size:40px;
+  input[type="text"]
+  select{
+    font-size:42px !important;
   }
 }
 [data-dpr='1'] {
@@ -144,9 +148,9 @@ select:focus {
    font-size:26px;
   }
   input[type="password"], 
-  input[type="text"], 
-  select:focus {
-    font-size:12px;
+  input[type="text"],
+  select{
+    font-size:12px !important;
   }
 }
 /* 

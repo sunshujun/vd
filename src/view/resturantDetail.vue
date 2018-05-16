@@ -79,7 +79,7 @@ export default{
     changeEchart(code){
         if(this.position=='food'){
           let name=encodeURIComponent(encodeURIComponent(this.name))
-          let url='/DAP/changeFoodEchart.do?date='+this.time+'&budget_type='+this.modeType+'&hotel_name='+name+'&account_code='+code+'&type='+cookie.get('langSet');
+          let url='/changeFoodEchart.do?date='+this.time+'&budget_type='+this.modeType+'&hotel_name='+name+'&account_code='+code+'&type='+cookie.get('langSet');
           this.$axios.get(url).then((res)=>{
             if (res.data.code==200){
                  this.echartData=res.data.data.echartData;
@@ -90,9 +90,9 @@ export default{
     getData(){
       let url='';
       if(this.position=='index'){
-         url='/DAP/getDetailData.do?date='+this.time+'&budget_type='+this.modeType+'&hotel_name='+encodeURIComponent(encodeURIComponent(this.name))+'&account_code='+this.code+'&type='+cookie.get('langSet')
+         url='/getDetailData.do?date='+this.time+'&budget_type='+this.modeType+'&hotel_name='+encodeURIComponent(encodeURIComponent(this.name))+'&account_code='+this.code+'&type='+cookie.get('langSet')
       }else{
-          url='/DAP/getFoodDetailData.do?date='+this.time+'&budget_type='+this.modeType+'&hotel_name='+encodeURIComponent(encodeURIComponent(this.name))+'&account_code='+this.code+'&type='+cookie.get('langSet')
+          url='/getFoodDetailData.do?date='+this.time+'&budget_type='+this.modeType+'&hotel_name='+encodeURIComponent(encodeURIComponent(this.name))+'&account_code='+this.code+'&type='+cookie.get('langSet')
       }
       this.$axios.get(url).then((res)=>{
         if (res.data.code==200){

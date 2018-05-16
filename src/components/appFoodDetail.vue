@@ -47,7 +47,7 @@ export default{
       return{ 
             showTitle:{
               firstTitle:this.$t('indicator'),
-              secondTitle:[this.$t('dayincome')+'('+this.$t('unit.yuan')+')',this.$t('covers'),this.$t('ave')]
+              secondTitle:[this.$t('rev')+'('+this.$t('unit.yuan')+')',this.$t('covers'),this.$t('ave')]
             },
             showData:this.listData.data,
       }

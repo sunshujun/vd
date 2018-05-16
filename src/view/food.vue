@@ -132,7 +132,7 @@ export default{
              this.$router.push("/resturant?position=food&time="+this.time+"&code="+code+'&modeType='+this.modeType)
           },
           getData(){
-                 let url='/DAP/getFoodData.do?date='+this.time+'&budget_type='+this.modeType+'&hotel_type='+(this.tilteNow=='all'?'':this.tilteNow)+'&hotel_name='+this.tilteNow+'&account_code='+this.account_code+'&type='+cookie.get('langSet')
+                 let url='/getFoodData.do?date='+this.time+'&budget_type='+this.modeType+'&hotel_type='+(this.tilteNow=='all'?'':this.tilteNow)+'&hotel_name='+this.tilteNow+'&account_code='+this.account_code+'&type='+cookie.get('langSet')
                   this.$axios.get(url).then((res)=>{
                      if(res.data.code==200){
                           this.resturantData[this.modeType][this.tilteNow]=res.data.data;

@@ -5,11 +5,11 @@
      	<div class="right font16">
      		<p :class="{'foodDetail':webposition=='foodDetail'}"><span v-for='item in showTitle.secondTitle'>{{item}}</span></p>
 	     	<p v-if="webposition=='resturant'">
-	     	         <span  v-for="(title,index) in showTitle.thirdTitle" @click='sort(index)'>{{title}}<i class="iconfont icon-paixu"></i></span>
+	     	         <span  v-for="(title,index) in showTitle.thirdTitle" @click='sort(index)'><b>{{title}}</b><i class="iconfont icon-paixu"></i></span>
 	     	</p>
                 <p v-else style="padding-right:0">
-                 <span  v-for="(title,index) in showTitle.thirdTitle" >{{title}}</span>
-        </p>
+                 <span  v-for="(title,index) in showTitle.thirdTitle" ><b>{{title}}</b></span>
+                </p>
      	</div>
      </div>
      <ul class="table-body">
@@ -19,13 +19,14 @@
                   <span>{{data.name}}</span>
                 </span>
                 <!-- <span class="font16" v-for='item in data.data'>{{item | formatNum}}</span> -->
-                <template v-if="data.data">
+                <template v-if="data.data&&webposition!='artificial'&&webposition!='separation'">
                          <span  :class="{'color-red':parseInt(data.data[0])-parseInt(data.data[1])<0}">{{data.data[0]|formatNum}}</span>
                         <span >{{data.data[1]|formatNum}}</span>
                         <span  :class="{'color-red':parseInt(data.data[2])<100}">{{data.data[2]|formatNum}}</span>
                         <span >{{data.data[3]|formatNum}}</span>
                         <span  :class="{'color-red':parseInt(data.data[4])<0}">{{data.data[4]|formatNum}}</span>
-              </template>
+              </template> 
+               <span v-else v-for="item in data.data">{{item}}</span> 
                  <span v-if="webposition=='resturant'" @click='jump(data.name)'><i class="iconfont icon-52"></i></span>
                  <span v-else style="width:0"></span>
               </li>
@@ -61,7 +62,7 @@ export default{
             showTitle:{firstTitle:'',secondTitle:[],thirdTitle:[]},
             showData:this.listData.data,
             sortMode:[true,true,true,true,true],//保存列表是升序还是降序
-            lang:cookie.get('langSet'), // 
+            lang:cookie.get('langSet'), //
       }
    },
    computed:{ 
@@ -71,10 +72,14 @@ export default{
         this.showData=this.listData.data;
         this.sortMode[0]=true;
         if(this.webposition=='resturant')this.sort(0);
-        if(cookie.get('langSet')!=this.lang){
-           this.lang=cookie.get('langSet');
-           this.setTitle();
-        } 
+      },
+      webposition(){
+        this.setTitle();
+      },
+      time(){
+        if(this.webposition=='artificial'||this.webposition=='separation'){
+          this.showTitle.secondTitle[0]=this.time.length==4?this.$t('currYear'):this.$t('currMonth')
+        }
       }
    },
    mounted(){
@@ -92,35 +97,35 @@ export default{
             this.$emit('changeEchart',code)
      },
      setTitle(){
-           if(this.webposition=='resturant'){
+           if(this.webposition=='resturant'){  //餐饮二级页面表头title
              this.showTitle={
               firstTitle:this.$t('hotelname'),
               secondTitle:[this.$t('dayincome')],
               thirdTitle:[this.$t('actual'),this.$t('budget'),this.$t('percent'),this.$t('lya'),this.$t('yoy')]
             }
-           }else if(this.webposition=='foodDetail'){
+           }else if(this.webposition=='foodDetail'){ //餐饮四级页面表头title
               this.showTitle={
                 firstTitle:this.$t('indicator'),
                 secondTitle:[this.$t('income'),this.$t('number'),this.$t('ave')],
                 thirdTitle:[this.$t('actual'),this.$t('budget'),this.$t('lya'),this.$t('actual'),this.$t('budget'),this.$t('actual'),this.$t('budget'),]
               }
-           }else if(this.webposition=='artificial'){
+           }else if(this.webposition=='artificial'){  //人力人工成本表头
               this.showTitle={
                 firstTitle:this.$t('indicator'),
-                secondTitle:[this.$t('income'),this.$t('number'),this.$t('ave')],
-                thirdTitle:[this.$t('actual'),this.$t('budget'),this.$t('lya'),this.$t('actual'),this.$t('budget'),this.$t('actual'),this.$t('budget'),]
+                secondTitle:[this.$t('actual'),this.$t('budget')],
+                thirdTitle:[this.$t('laboarcost'),this.$t('laboarcost')+'%',this.$t('laboarcost'),this.$t('laboarcost')+'%']
               }
-           }else{
+           }else if(this.webposition=='separation'){  //人力离职率表头
                this.showTitle={
                 firstTitle:this.$t('indicator'),
-                secondTitle:[this.$t('income'),this.$t('number'),this.$t('ave')],
-                thirdTitle:[this.$t('actual'),this.$t('budget'),this.$t('lya'),this.$t('actual'),this.$t('budget'),this.$t('actual'),this.$t('budget'),]
+                secondTitle:[this.time.length==4?this.$t('currYear'):this.$t('currMonth')],
+                thirdTitle:[this.$t('turnoveract'),this.$t('onduty'),this.$t('turnoverper')]
               }
-           } 
+           }
      },
      sort(index){  //对列表数据进行排序
        let newArr=[...this.showData];
-       let n=this.showData.length; 
+       let n=this.showData.length;
        if(n==0) return;
         for(let i=0; i<n; i++){
           for(let j=0; j<n; j++){
@@ -151,6 +156,16 @@ export default{
 }
 </script>
 <style lang="less" scoped> 
+[data-dpr="1"]{
+                  .iconfont{
+                                    font-size:12px;
+                                   }
+                }
+[data-dpr="3"]{
+                  .iconfont{
+                                    font-size:24px;
+                                   }
+                }
  #tableResturant{
    margin: 0 auto;
    padding-top: .13333333rem;
@@ -185,32 +200,37 @@ export default{
    	    text-align: center;
                     /* padding-left: .73333333rem; */
                     border-right: 1px solid #d4d7e0;
-   	 }
+   	 } 
    	 .right{
    	   flex-grow:1;
-   	               p{
+   	         p{
 	   	   display: flex;
-	   	 }
+	   	 } 
 	   	 p:nth-of-type(1){
 	                     height: .53333333rem;
 	                     line-height: .52rem;
 	                     border-bottom: 1px solid #dfe1e8;
 	                     span{
-                                            flex-grow: 1;
+                                  width:0;
+                                  flex-grow: 1;
 	                           display: inline-block;
 	                           text-align: center;
 	                     }
 	   	 }
 	   	 p:nth-of-type(2){
 	   	      height:.61333333rem/* 46px */;
-                      line-height:.61333333rem/* 46px */;
 	   	      padding-right: .33333333rem;
 	   	      span{
 	   	           width:0;
 	   	           flex-grow: 1;
-                           display: inline-block;
+                           display: flex;
+                           flex-direction:column;
+                           justify-content:center;
                            text-align: center;
                            color:#444;
+                           b{
+                            font-weight:normal;
+                           }
 	   	      }
                       span:nth-child(2n-1){
                         background-color:rgb(249,249,249); 

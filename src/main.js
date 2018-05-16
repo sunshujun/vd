@@ -6,6 +6,8 @@ import router from './router'
 import axios from 'axios'
 import i18n from './international'  //中英文切换 
 Vue.config.productionTip = false;
+console.log(window.baseURL);
+axios.defaults.baseURL = window.baseURL;
 Vue.prototype.$axios=axios;
 /* eslint-disable no-new */
 Vue.filter('formatNum', function (s) {    //定义一个全局的千分位分隔符过滤器

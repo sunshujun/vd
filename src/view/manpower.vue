@@ -3,8 +3,7 @@
       <div class="head">
       	<app-header  
         @selfChangeTime="changeTime" 
-        @selfChangeMode="changeMode" 
-        @changeLang="changeLang"
+        @selfChangeMode="changeMode"
         :time="time" 
         :isShowSearch="false"
         :isHiddenDay="true">
@@ -27,6 +26,7 @@
 <script type="text/javascript">
 import appEcharts from "../components/appEcharts";
 import appHeader from '../components/appHeader';
+import {cookie} from 'vux';
 let timeNow=new Date();
 let year=timeNow.getFullYear();
 let month=(timeNow.getMonth()+1)>9?(timeNow.getMonth()+1):'0'+(timeNow.getMonth()+1); 
@@ -35,20 +35,9 @@ export default{
  data(){
      return{
       time:year+month+'', //时间
-      dataArt:[{
-                                        name:'实际',
-                                        data:[150, 232, 201, 154,213]
-                                      },{
-                                        name:'预算',
-                                        data:[290, 182, 101, 234, 290]
-                                      }],
-      dataSep:[{
-                                        name:'主动',
-                                        data:[150, 232, 201]
-                                      },{
-                                        name:'离职率',
-                                        data:[290, 182, 101]
-                                }]
+      modeType:'group',
+      dataArt:[],
+      dataSep:[]
      }
  },
  computed:{
@@ -60,7 +49,7 @@ export default{
                      time:this.time,
                      modeType:'group',
                      headIcon:'light',
-                     title:this.time.substr(0,4)+'年人工成本率趋势图',
+                     title:this.time.substr(0,4)+this.$t('HrEchartTitle1'),
                      data:this.dataArt,
                      xAxis:['1月','3月','6月','9月','12月'],
                  }
@@ -72,7 +61,7 @@ export default{
                      isShowHead:true,
                      time:this.time,
                      headIcon:'user',
-                     title:this.time.substr(0,4)+'年离职率趋势图',
+                     title:this.time.substr(0,4)+this.$t('HrEchartTitle1'),
                      data:this.dataSep,
                      xAxis:['1月','6月','12月']
                   }
@@ -81,30 +70,21 @@ export default{
  methods:{
       changeTime(time){
         this.time=time;
-        this.changeTopTitle();
+        this.getData();
       },
-      changeMode(){
-        
-      },
-      changeLang(){
-
-      },
-      changeTopTitle(){ 
-               if(this.time.length<5){
-                       document.title=this.$t('manpowerTitle.year');
-               }else{
-                       document.title=this.$t('manpowerTitle.month');
-               } 
-       },
+       changeMode(mode){
+                 this.modeType=mode;
+                 this.getData();
+        },
       jump(type){
-            this.$router.push('/artandsep?type='+type+'&time='+this.time);
+            this.$router.push('/artandsep?type='+type+'&time='+this.time+'&modeType='+this.modeType);
       },
       getData(){
-        let url='';
+        let url='getHumenEchart.do?date='+this.time+'&type='+cookie.get('langSet')+'&budget_type='+this.modeType;
         this.$axios.get(url).then((res)=>{
           if (res.data.code==200){
-               this.dataSep=res.data;
-               this.dataArt=res.data;
+               this.dataSep=res.data.data.echartData;
+               this.dataArt=res.data.data.echartData1; 
           }
         })
       },
@@ -113,8 +93,8 @@ export default{
            'app-header':appHeader,
            'app-ecahrt':appEcharts,
   },
-  mounted(){ 
-    this.changeTopTitle();
+  mounted(){
+    this.getData();
   }
 }
 </script>

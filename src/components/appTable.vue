@@ -40,7 +40,7 @@ export default{
    },
    methods:{
    	jump(code){
-   	   this.$emit('jump',code)
+   	   this.$emit('jump',code);
    	   /*this.$router.push('/resturant?code='+code+'&position='+this.position+'&time='+this.time+'&modeType='+this.modeType);*/
    	},
    	changeEchart(code){
@@ -101,7 +101,7 @@ export default{
 	    background:#E9F8FF url(../../static/images/@2x/tablehead4@2x.png) no-repeat;
 	    background-size: cover;
 	}
-	[data-dpr='3'] {
+	[data-dpr='3']  &{
 	               .bg-purple{
 		    background:#ffe6ff url(../../static/images/@3x/tablehead1@3x.png) no-repeat; 
 		    background-size: cover;

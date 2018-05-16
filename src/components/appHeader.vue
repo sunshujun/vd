@@ -282,7 +282,7 @@ export default{
           span{
             display: inline-block;
             height: 100%;
-            line-height:.42666667rem;
+            line-height:.42666667rem/* 32px */;
             letter-spacing:.02666667rem/* 2px */; 
           }
         }
@@ -394,7 +394,7 @@ export default{
                   background:url(../../static/images/@2x/calendar-bg@2x.png) no-repeat center center;
                   background-size: cover;
                  }
-                 [data-dpr='3'] div{
+                 [data-dpr='3'] & div{
                    background:url(../../static/images/@3x/calendar-bg@3x.png) no-repeat center center;
                    background-size: cover;
                  }

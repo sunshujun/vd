@@ -115,7 +115,7 @@ let day=timeNow.getDate()>9?timeNow.getDate():'0'+(timeNow.getDate()-1);
       },
        getFilters(){
              /*let url='http://10.1.234.173:8080/DAP/getFourData.do';*/
-             let url='/DAP/getFourData.do?type='+cookie.get('langSet');
+             let url='/getFourData.do?type='+cookie.get('langSet');
              this.$axios.get(url).then((res)=>{
                      if(res.data.code==200)
                      this.conditionArr=res.data.data;
@@ -128,9 +128,9 @@ let day=timeNow.getDate()>9?timeNow.getDate():'0'+(timeNow.getDate()-1);
                           let c2=encodeURIComponent(encodeURIComponent(this.conditions[1]));
                           let c3=encodeURIComponent(encodeURIComponent(this.conditions[2]));
                           let c4=encodeURIComponent(encodeURIComponent(this.conditions[3]));
-                          url='/DAP/getTwoData.do?date='+this.time+'&budget_type='+this.modeType+'&code='+this.code+'&hotel_type='+c1+'&hotel_brand='+c2+'&hotel_area='+c3+'&hotel_owner='+c4+'&type='+cookie.get('langSet');
+                          url='/getTwoData.do?date='+this.time+'&budget_type='+this.modeType+'&code='+this.code+'&hotel_type='+c1+'&hotel_brand='+c2+'&hotel_area='+c3+'&hotel_owner='+c4+'&type='+cookie.get('langSet');
                  }else{
-                         url='/DAP/getFoodTwoData.do?date='+this.time+'&budget_type='+this.modeType+'&code='+this.code+'&type='+cookie.get('langSet');
+                         url='/getFoodTwoData.do?date='+this.time+'&budget_type='+this.modeType+'&code='+this.code+'&type='+cookie.get('langSet');
                  }
                   url+='&i='+(this.isComplete?(this.isComplete=='complete'?1:0):'');
                   this.$axios.get(url).then((res)=>{
@@ -140,7 +140,7 @@ let day=timeNow.getDate()>9?timeNow.getDate():'0'+(timeNow.getDate()-1);
                   })
           },
         getCode(){
-          let url='/DAP/getCode.do?type='+cookie.get('langSet');
+          let url='/getCode.do?type='+cookie.get('langSet');
           this.$axios.get(url).then((res)=>{
                   if(res.data.code==200){
                          this.codeTitles.index=res.data.data.index;
@@ -255,6 +255,9 @@ let day=timeNow.getDate()>9?timeNow.getDate():'0'+(timeNow.getDate()-1);
 	           }
       	   } 
       	}
+        li:first-child{
+          width:.26666667rem/* 20px */;
+        }
       	li:last-child{
       	   border-right: none;
       	}

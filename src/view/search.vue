@@ -69,7 +69,7 @@ export default{
              if(this.searchKey.match(reg)){
                     this.inputError=true;
                     let key=encodeURIComponent(encodeURIComponent(this.searchKey));
-                    let url='/DAP/hotWordsLike.do?name='+key+'&type='+cookie.get('langSet');
+                    let url='/hotWordsLike.do?name='+key+'&type='+cookie.get('langSet');
                     this.$axios.get(url).then((res)=>{
                        if(res.data.code==200)
                         this.searchList=res.data.data;
@@ -85,7 +85,7 @@ export default{
    	   this.$router.go('-1')
    	},
    	deleteHistory(){
-          let url='DAP/deleteNewSearch.do?userid='+cookie.get('userid');
+          let url='/deleteNewSearch.do?userid='+cookie.get('userid');
           this.$axios.get(url).then((res)=>{
              if(res.data.code==200)
               this.nearly=[];;
@@ -103,21 +103,21 @@ export default{
               this.searchKey=name;
         },
         getNearly(){   //获取最近搜索数据
-          let url='/DAP/searchWords.do?type='+cookie.get('langSet')+'&userid='+cookie.get('userid');
+          let url='/searchWords.do?type='+cookie.get('langSet')+'&userid='+cookie.get('userid');
           this.$axios.get(url).then((res)=>{
              if(res.data.code==200)
               this.nearly=res.data.data;
           })
         },
         getHot(){
-          let url='/DAP/hotWords.do?type='+cookie.get('langSet');
+          let url='/hotWords.do?type='+cookie.get('langSet');
           this.$axios.get(url).then((res)=>{
              if(res.data.code==200)
               this.hot=res.data.data;
           })
         },
         addNearly(name,type){  //添加最近搜索记录
-           let url ='/DAP/addNewSearch.do?userid='+cookie.get('userid')+'&type='+cookie.get('langSet')+'&name='+type+'&words='+encodeURIComponent(encodeURIComponent(name));
+           let url ='/addNewSearch.do?userid='+cookie.get('userid')+'&type='+cookie.get('langSet')+'&name='+type+'&words='+encodeURIComponent(encodeURIComponent(name));
               this.$axios.get(url).then((res)=>{
                 /* if(res.data.code==200)
                   console.log('添加成功');*/

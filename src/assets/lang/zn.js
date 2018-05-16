@@ -57,6 +57,11 @@ module.exports={
 	area:'区域内排名第',
 	laboarcost:'人工成本',
 	turnover:'离职率',
+	turnoverper:'离职率', //对应人力二级页面表头
+	onduty:'在岗人数',
+	turnoveract:'离职人数',
+	currMonth:'本月',
+	currYear:'本年',
 	hot:'热词搜索',
 	nearly:'最近搜索',
 	empty:'清空历史记录',
@@ -69,6 +74,8 @@ module.exports={
 	actual:'实际',
 	income:'收入',
 	number:'人数',
+	HrEchartTitle1:'年人力资源成本趋势图',
+	HrEchartTitle2:'年离职趋势图',
 	unit:{
 	     home:'家',
 	     million:'万元',

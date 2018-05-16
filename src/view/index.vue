@@ -167,7 +167,7 @@ export default{
           },
           changeEchart(code){
                let name=encodeURIComponent(encodeURIComponent(this.tilteNow));
-               let url='/DAP/changeFirstEchart.do?type='+cookie.get('langSet')+'&hotel_name='+name+'&account_code='+code+'&date='+this.time+'&budget_type='+this.modeType
+               let url='/changeFirstEchart.do?type='+cookie.get('langSet')+'&hotel_name='+name+'&account_code='+code+'&date='+this.time+'&budget_type='+this.modeType
                   this.$axios.get(url).then((res)=>{
                      if(res.data.code==200){
                           this.resturantData[this.modeType][this.tilteNow]['echartData']=res.data.data.echartData;  
@@ -209,7 +209,7 @@ export default{
                 this.$router.push(url);
           },
           getData(){
-                 let url='/DAP/getData.do?date='+this.time+'&budget_type='+this.modeType+'&hotel_type='+(this.tilteNow=='all'?'':this.tilteNow)+'&hotel_name='+this.tilteNow+'&account_code='+this.account_code+'&type='+cookie.get('langSet')
+                 let url='/getData.do?date='+this.time+'&budget_type='+this.modeType+'&hotel_type='+(this.tilteNow=='all'?'':this.tilteNow)+'&hotel_name='+this.tilteNow+'&account_code='+this.account_code+'&type='+cookie.get('langSet')
                   this.$axios.get(url).then((res)=>{
                      if(res.data.code==200){
                           this.resturantData[this.modeType][this.tilteNow]=res.data.data;  
