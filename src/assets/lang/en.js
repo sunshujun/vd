@@ -56,6 +56,7 @@ module.exports={
 	groupin:'Group Rank',
 	area:'Area Rank',
 	laboarcost:'Laboar Cost',
+	laboarcostper:'Laboar Cost%',
 	turnover:'Turnover',
 	turnoverper:'Turnover%',
 	onduty:'on duty',

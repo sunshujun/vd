@@ -49,7 +49,7 @@ export default {
 </script>
 
 <style lang='less'>
-/* 
+/*
 * 页面中的字体大小设置
  */
 .font14{
@@ -75,14 +75,14 @@ export default {
   }
 .font32{
  font-size:34px;
-} 
+}
 .font46{
    font-size:44px;
-  } 
+  }
 input[type="password"], /*强行设置iphone input框字体大小，防止点击放大页面*/
 input[type="text"],
 select{
-  font-size:32px !important;  
+  font-size:32px !important;
 }
 
 [data-dpr='3'] {
@@ -113,10 +113,10 @@ select{
   .font46{
    font-size:74px;
   }
-  input[type="password"], 
-  input[type="text"]
+  input[type="password"],
+  input[type="text"],
   select{
-    font-size:42px !important;
+    font-size:48px !important;
   }
 }
 [data-dpr='1'] {

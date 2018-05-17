@@ -1,11 +1,11 @@
 <template>
  <div id="resturant">
     <div class="head" :class="{'noSelect':position=='food'}">
-    	<app-header 
-          @selfChangeTime="changeTime" 
-          @selfChangeMode="changeMode" 
+    	<app-header
+          @selfChangeTime="changeTime"
+          @selfChangeMode="changeMode"
           @changeLang="changeLang"
-          :time="time" 
+          :time="time"
           :modeType="modeType">
           </app-header>
     	<ul v-if="position=='index'" class="selects">
@@ -20,9 +20,9 @@
         <a v-if="position=='index'" class="btn font20" @click.preventDefault="reset">{{$t("reset")}}</a>
     </div>
     <div class="content">
-         <app-title @changeTitle="changeTitle" :titles="titles"></app-title> 
-    	  <app-table-resturant 
-             :listData="showData"  
+         <app-title @changeTitle="changeTitle" :titles="titles"></app-title>
+    	  <app-table-resturant
+             :listData="showData"
              :time="time"
              :modeType="modeType"
              :height="height"

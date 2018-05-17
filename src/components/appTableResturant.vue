@@ -5,7 +5,7 @@
      	<div class="right font16">
      		<p :class="{'foodDetail':webposition=='foodDetail'}"><span v-for='item in showTitle.secondTitle'>{{item}}</span></p>
 	     	<p v-if="webposition=='resturant'">
-	     	         <span  v-for="(title,index) in showTitle.thirdTitle" @click='sort(index)'><b>{{title}}</b><i class="iconfont icon-paixu"></i></span>
+	     	         <span  v-for="(title,index) in showTitle.thirdTitle" @click='sort(index)'><b>{{title}}<i class="iconfont icon-paixu"></i></b></span>
 	     	</p>
                 <p v-else style="padding-right:0">
                  <span  v-for="(title,index) in showTitle.thirdTitle" ><b>{{title}}</b></span>
@@ -113,7 +113,7 @@ export default{
               this.showTitle={
                 firstTitle:this.$t('indicator'),
                 secondTitle:[this.$t('actual'),this.$t('budget')],
-                thirdTitle:[this.$t('laboarcost'),this.$t('laboarcost')+'%',this.$t('laboarcost'),this.$t('laboarcost')+'%']
+                thirdTitle:[this.$t('laboarcost'),this.$t('laboarcostper'),this.$t('laboarcost'),this.$t('laboarcostper')]
               }
            }else if(this.webposition=='separation'){  //人力离职率表头
                this.showTitle={
