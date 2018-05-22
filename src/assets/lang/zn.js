@@ -77,6 +77,7 @@ module.exports={
 	number:'人数',
 	HrEchartTitle1:'年人力资源成本趋势图',
 	HrEchartTitle2:'年离职趋势图',
+	all:'全部酒店',
 	unit:{
 	     home:'家',
 	     million:'万元',

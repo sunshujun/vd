@@ -8,7 +8,7 @@
   </h1>
   <span v-else class="font14">{{option.time}}</span>
   <div :id="echartId" class="echartArea" :style="echartStyle"></div>
-</div> 
+</div>
 </template>
 <script >
 import {cookie} from 'vux'
@@ -93,7 +93,7 @@ export default{
                     colorStops:[{
                        offset:1,color:'#fff'
                     },{
-                       offset:0,color:'#ff9900'
+                       offset:0,color:'##f60'
                     }]
                  },{
                     type:'linear',
@@ -104,21 +104,15 @@ export default{
                     colorStops:[{
                        offset:1,color:'#fff'
                     },{
-                       offset:0,color:'#ff6600'
+                       offset:0,color:'#f3f'
                     }]
                  }
                 ],//区域填充颜色渐变值，对应下面四个颜色值
                 optionLine:{
-        color:["#009eff","#19ff00","#ff9900","#ff6600"],
+        color:["#009eff","#19ff00","#f60","#909"],
         tooltip : {
             trigger: 'axis',
-            /*axisPointer: {
-                type: 'cross',
-                label: {
-                    backgroundColor: '#6a7985'
-                }
-            },*/
-                        textStyle:{}
+            textStyle:{}
         },
         legend: {
            right:'2%',
@@ -153,13 +147,12 @@ export default{
                       color:'#999'
                      }
                 },
-                           axisLabel:{
-                            
-                           },
+                 axisLabel:{
+                 },
                 axisTick :{
                   show:false
                 },
-                           splitNumber:6
+                splitNumber:6
             },
         yAxis : {
                 show:true ,
@@ -227,26 +220,27 @@ export default{
             this.optionLine.legend.textStyle.fontSize=20;
        }
        if(this.option.data[0]&&this.option.data[0].isTwo){
+         this.optionLine.color=["#009eff","#19ff00","#f60","#909"];
          data=[...this.option.data];
          let two=data.shift(); 
          let data1=[];
          let data2=[];
          let data3=[];
          for(let i=0;i<two.data.length;i++){  //取实际值 ,实际值与预测值重叠一个
-             if(i<two.startIndex+1){
+             if(i<two.startIndex){
                   data1.push(two.data[i]);
              }else{
                   data1.push('');
              }
          }
          for(let z=0;z<two.data.length;z++){  //取预测值
-             if(z>two.startIndex-1){
+             if(z>two.startIndex-2){
                   data2.push(two.data[z]);
              }else{
                   data2.push('');
              }
          }
-         for(let t=0;t<two.startIndex+1;t++){  //取预测值
+         for(let t=0;t<two.startIndex+1;t++){  //取实际值那个点
              if(t==two.startIndex){
                   data3.push(two.total);
              }else{
@@ -284,7 +278,15 @@ export default{
                         return html;
                 }
        }else{
+        this.optionLine.color=["#009eff","#f60","#909"];
         data=[...this.option.data];
+        this.optionLine.tooltip.formatter=function(params){
+          let html=params[0].axisValue+'<br/>';
+           params.forEach((item,index)=>{
+                           html+=item.marker+item.seriesName+":"+item.value+"<br/>"
+            })
+            return html;
+        }
        }
        data.forEach((item,index)=>{
           let json={
@@ -300,34 +302,12 @@ export default{
              json.symbolSize=8
          }
          if(that.option.isFilling){
-                   json.areaStyle= {color:this.colorLinear[isTwo?(index+1):index]}
+                if(!(item.name=='预算'||item.name=='Budget'||item.name=='同期'||item.name=='LYA')){
+                    json.areaStyle= {color:this.colorLinear[index]};
+                }
           }
          legendData.push({name:item.name,icon:'rect'});
          seriesData.push(json);
-          if(item.isTwo){   //如果该条数据是实际与预测
-                isTwo=true;
-                legendData.push({name:item.name2,icon:'rect'});
-                seriesData.push({
-                  name:item.name2,
-                  type:'line',
-                  smooth:true,
-                  areaStyle:{color:this.colorLinear[index+1]},
-                  data:[],
-                }); 
-              /* this.optionLine.visualMap={
-                                                                    show: false,
-                                                                    dimension: 0,
-                                                                    pieces: [{
-                                                                        lte:item.startIndex-1,
-                                                                        color:this.optionLine.color[index]
-                                                                    }, {
-                                                                        gt:item.startIndex-1,
-                                                                        lte:item.data.length,
-                                                                        color:this.optionLine.color[index+1]
-                                                                    }],
-                                                                    seriesIndex:index,
-                                                                }*/ 
-          }
        })
        this.optionLine.series=seriesData;
        let arr=[]; 

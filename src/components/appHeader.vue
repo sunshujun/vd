@@ -24,7 +24,8 @@
                <date-time-view 
                 v-model="timeNow"
                 :format="format"
-                :min-year="1980">
+                :min-year="1980"
+                :end-date="endtime">
                 </date-time-view>
                 <div class="timefooter ">
                   <button class="font24" @click.stop="hideTimeModal('sure')">{{$t("sure")}}</button>
@@ -36,7 +37,10 @@
  </div>
 </template>
 <script type="text/javascript">
-import appDatepicker from 'vue-datepicker'; 
+let timeNow=new Date();
+let year=timeNow.getFullYear();
+let month=(timeNow.getMonth()+1)>9?(timeNow.getMonth()+1):'0'+(timeNow.getMonth()+1);
+let day=timeNow.getDate()>9?(timeNow.getDate()):'0'+(timeNow.getDate());
 import { DatetimeView ,cookie} from 'vux';
 export default{
       name:'appHeader',
@@ -69,13 +73,13 @@ export default{
                     version:this.modeType=='group'?true:false,   //true表示集团版false表示压力
                      isShowTimeModal:false,  //是否显示时间选择模板
                     format:'YYYY-MM-DD',
+                    endtime:year+'-'+month+'-'+day,
                     isYear:false,
                     isMonth:false,
                     isDay:true,
 		}
 	},
      components:{
-        'date-picker':appDatepicker,
         'date-time-view':DatetimeView
      },
      watch:{

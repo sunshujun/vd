@@ -32,10 +32,34 @@
                 line-height: .86666667rem/* 65px */ !important;
                 font-size: .4rem !important;
               }
+              .weui-dialog{
+                max-width: 6.66666667rem/* 500px */ !important;
+              }
+               [data-dpr='1'] .weui-dialog__title,
+               [data-dpr='1'] .weui-dialog__ft{
+                    font-size:12px !important;
+              }
+              [data-dpr='2'] .weui-dialog__title,
+              [data-dpr='2'] .weui-dialog__ft{
+                    font-size: 24px !important;
+              }
+              [data-dpr='3'] .weui-dialog__title,
+              [data-dpr='3'] .weui-dialog__ft{
+                    font-size: 34px !important;
+              } 
+              [data-dpr='1'] .weui-dialog__bd{
+                    font-size:12px !important;
+              }
+              [data-dpr='2'] .weui-dialog__bd{
+                    font-size: 20px !important;
+              }
+              [data-dpr='3'] .weui-dialog__bd{
+                    font-size: 28px !important;
+              } 
     </style>
     <script type="text/javascript">
-        window.langgroup='cn';
-        window.baseURL='/DAP/';
+        window.langgroup='cn';  //切换中英文
+        window.baseURL='/DAP/';  //设置请求的baseurl
         let timeNow=new Date();
         let year=timeNow.getFullYear();
         let month=(timeNow.getMonth()+1)>9?(timeNow.getMonth()+1):'0'+(timeNow.getMonth()+1);

@@ -13,7 +13,7 @@
                   -->
                   <div class="left" @click="jumpToSecond(account_code)">
                       <p :class="['font46',parseInt(showData.detail[2])<0?'color-red':'']">{{showData.sum|formatNum}}<span class="font14 unit">{{$t("unit.million")}}</span></p>
-                      <span class="font18">{{title[tilteNow]}}</span>
+                      <span class="font18">{{title[tilteNow]=='All'?'Total':title[tilteNow]}}</span>
                  </div>
                  <div class="right">
                       <p @click="jump('complete')">
@@ -79,7 +79,7 @@ export default{
 	name:'appIndex',
 	data(){
 	  return{
-                       title:{all:this.$t("total"),out:this.$t("mgt"),entrust:this.$t("coh"),self:this.$t("omh"),},
+                       title:{all:this.$t("all"),out:this.$t("mgt"),entrust:this.$t("coh"),self:this.$t("omh"),},
                         bgClass:{all:"bg-purple",out:"bg-sky",entrust:"bg-blue",self:"bg-green"},
                         modeType:'group',
                         time:window.selectTime,//year+month+day+'', //时间

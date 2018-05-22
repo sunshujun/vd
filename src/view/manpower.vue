@@ -140,10 +140,10 @@ export default{
          justify-content:center;
   	}
   	li:nth-child(1){
-  		padding-left: 2rem;
-  		background:url(../../static/images/@2x/lightbig@2x.png) no-repeat 1.2rem center;
+  		padding-left: 1.33333333rem/* 100px */;
+  		background:url(../../static/images/@2x/lightbig@2x.png) no-repeat .33333333rem center;
   		[data-dpr='3'] &{
-  			background:url(../../static/images/@3x/lightbig@3x.png) no-repeat 1.2rem center;
+  			background:url(../../static/images/@3x/lightbig@3x.png) no-repeat .33333333rem center;
   		} 
                 [data-dpr='1'] &{
                            background-size: 21%;
@@ -160,10 +160,10 @@ export default{
   		}
   	}
   	li:nth-child(2){
-  		padding-left: 2.26666667rem;
-  		background:url(../../static/images/@2x/userbig@2x.png) no-repeat 1.33333333rem center;
+  		padding-left: 1.6rem/* 120px */;
+  		background:url(../../static/images/@2x/userbig@2x.png) no-repeat .4rem center;
   		[data-dpr='3'] &{
-  			background:url(../../static/images/@3x/userbig@3x.png) no-repeat 1.33333333rem center;
+  			background:url(../../static/images/@3x/userbig@3x.png) no-repeat .4rem center;
   		}
              [data-dpr='1'] &{
                                  background-size: 21%;

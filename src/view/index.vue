@@ -10,7 +10,7 @@
        <div class="all-resturant">
        	   <div class="left" @click="jumpToSecond(account_code)">
                 <p :class="['font46',parseInt(showData.detail[2])<0?'color-red':'']">{{showData.sum|formatNum}}<span class="font14 unit">{{$t("unit.million")}}</span></p>
-                <span class="font18">{{title[tilteNow]}}</span>
+                <span class="font18">{{title[tilteNow]=='All'?'Total':title[tilteNow]}}</span>
            </div>
            <div class="right">
                 <p @click="jump('complete')">
@@ -69,12 +69,12 @@
 import appHeader from '../components/appHeader';
 import appTable from '../components/appTable';
 import appEcharts from "../components/appEcharts";
-import {cookie} from 'vux';  
+import {cookie} from 'vux';
 export default{
 	name:'appIndex',
 	data(){
 		return{
-                        title:{all:this.$t("total"),out:this.$t("mgt"),entrust:this.$t("coh"),self:this.$t("omh")},
+                        title:{all:this.$t("all"),out:this.$t("mgt"),entrust:this.$t("coh"),self:this.$t("omh")},
                         bgClass:{all:"bg-purple",out:"bg-sky",entrust:"bg-blue",self:"bg-green"},
                         modeType:'group',
                         modeName:this.$t("group")+this.$t("budget"),
@@ -170,7 +170,7 @@ export default{
                let url='/changeFirstEchart.do?type='+cookie.get('langSet')+'&hotel_name='+name+'&account_code='+code+'&date='+this.time+'&budget_type='+this.modeType
                   this.$axios.get(url).then((res)=>{
                      if(res.data.code==200){
-                          this.resturantData[this.modeType][this.tilteNow]['echartData']=res.data.data.echartData;  
+                          this.resturantData[this.modeType][this.tilteNow]['echartData']=res.data.data.echartData;
                      }
                   }).catch((error)=>{
                     alert(error)
@@ -211,8 +211,21 @@ export default{
           getData(){
                  let url='/getData.do?date='+this.time+'&budget_type='+this.modeType+'&hotel_type='+(this.tilteNow=='all'?'':this.tilteNow)+'&hotel_name='+this.tilteNow+'&account_code='+this.account_code+'&type='+cookie.get('langSet')
                   this.$axios.get(url).then((res)=>{
-                     if(res.data.code==200){
-                          this.resturantData[this.modeType][this.tilteNow]=res.data.data;  
+                     if(res.data.code==200){ 
+                          if(!res.data.data.sum){
+                              let _this=this;
+                              this.$vux.confirm.show({
+                                title:'消息提示',
+                                content:'当天数据为空，是否展示最近有数据的一天',
+                                confirmText:_this.$t('sure'),
+                                cancelText:_this.$t('cancel'),
+                                onConfirm(){
+                                  console.log('确认');
+                                }
+                              })
+                          }else{
+                              this.resturantData[this.modeType][this.tilteNow]=res.data.data; 
+                          }
                      }
                   }).catch((error)=>{
                     alert(error)
@@ -244,7 +257,7 @@ export default{
            'app-ecahrt':appEcharts,
 	},
         mounted(){
-           this.getData(); 
+           this.getData();
         }
 }
 </script>
@@ -301,7 +314,7 @@ export default{
         }
         span:nth-child(1){
           display: inline-block;
-          width: 1.26666667rem/* 95px */;
+          width: 1.6rem/* 120px */;
           margin-right:.26666667rem/* 20px */;
         }
         span:nth-child(2){

@@ -253,8 +253,15 @@ let day=timeNow.getDate()>9?timeNow.getDate():'0'+(timeNow.getDate()-1);
       	          [data-dpr='3'] &{
 	               background:transparent url(../../static/images/@3x/down@3x.png) no-repeat right center; 
 	           }
-      	   } 
+      	   }
       	}
+        [data-dpr='3'] & li{
+          height:.56rem/* 42px */;
+          line-height:.56rem/* 42px */;
+        }
+        [data-dpr='3'] & li:first-child{
+          width:.66666667rem/* 50px */;
+        }
         li:first-child{
           width:.26666667rem/* 20px */;
         }

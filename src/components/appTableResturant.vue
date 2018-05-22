@@ -111,13 +111,13 @@ export default{
               }
            }else if(this.webposition=='artificial'){  //人力人工成本表头
               this.showTitle={
-                firstTitle:this.$t('indicator'),
+                firstTitle:this.$t('hotelname'),
                 secondTitle:[this.$t('actual'),this.$t('budget')],
                 thirdTitle:[this.$t('laboarcost'),this.$t('laboarcostper'),this.$t('laboarcost'),this.$t('laboarcostper')]
               }
            }else if(this.webposition=='separation'){  //人力离职率表头
                this.showTitle={
-                firstTitle:this.$t('indicator'),
+                firstTitle:this.$t('hotelname'),
                 secondTitle:[this.time.length==4?this.$t('currYear'):this.$t('currMonth')],
                 thirdTitle:[this.$t('turnoveract'),this.$t('onduty'),this.$t('turnoverper')]
               }
