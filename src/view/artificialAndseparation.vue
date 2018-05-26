@@ -7,11 +7,20 @@
       	    :isShowSearch="false"
       	    :time="time"
                     :modeType="modeType"
+                    :isHiddenDay="true"
+                    :isShowMode="isShowMode"
       	     >
       	</app-header>
       </div>
       <div class="body">
-      	<app-table-resturant :listData="showData" :webposition="webposition" :time="time"></app-table-resturant>
+      	<app-table-resturant 
+      	   :listData="showData" 
+      	   :webposition="webposition" 
+      	   :time="time"  
+      	   :isAddSort="true"
+      	   :isJumpNext="false"
+      	   >
+      	   </app-table-resturant>
       </div>
  </div>
 </template>
@@ -26,11 +35,13 @@ export default{
 	                          showData:[],
 	                          time:'',
 	                          webposition:'artificial',//默认人工成本
+	                          isShowMode:true,  //是否展示切换集团压力按钮
 		}
 	},
 	methods:{
 	      changeTime(time){
 	      	  this.time=time;
+	      	  window.selectTime=time;
                                  this.getData();
 	      },
 	      changeMode(mode){
@@ -53,14 +64,17 @@ export default{
 	},
 	mounted(){
 	   this.time=this.$route.query.time;
-	   this.modeType=this.$route.query.modeType;
 	   if(this.$route.query.type=='artificial'){
 	   	document.title=this.$t('laboarcost');
 	   	this.webposition='artificial';
+	   	this.isShowMode=true;
+	   	this.modeType=this.$route.query.modeType;
 	   }else if(this.$route.query.type=='separation'){
 	   	document.title=this.$t('turnover');
 	   	this.webposition='separation';
-	   }
+	   	this.isShowMode=false;
+	   	this.modeType='group';
+	   } 
 	   this.getData();
 	}
 }

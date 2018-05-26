@@ -4,12 +4,13 @@
      	<div class="font20 left">{{showTitle.firstTitle}}</div>
      	<div class="right font16">
      		<p :class="{'foodDetail':webposition=='foodDetail'}"><span v-for='item in showTitle.secondTitle'>{{item}}</span></p>
-	     	<p v-if="webposition=='resturant'">
-	     	         <span  v-for="(title,index) in showTitle.thirdTitle" @click='sort(index)'><b>{{title}}<i class="iconfont icon-paixu"></i></b></span>
-	     	</p>
-                <p v-else style="padding-right:0">
-                 <span  v-for="(title,index) in showTitle.thirdTitle" ><b>{{title}}</b></span>
-                </p>
+	     	<p  :class="{'padRight0':!isJumpNext}">
+                       <span v-if="isAddSort"  v-for="(title,index) in showTitle.thirdTitle" @click='sort(index)'><b>{{title}}<i class="iconfont icon-paixu"></i></b></span>
+                       <span v-else v-for="(title,index) in showTitle.thirdTitle" ><b>{{title}}</b></span>
+              </p>
+                <!-- <p v-else style="padding-right:0">
+                    <span  v-for="(title,index) in showTitle.thirdTitle" ><b>{{title}}</b></span>
+                </p> -->
      	</div>
      </div>
      <ul class="table-body">
@@ -46,6 +47,12 @@ export default{
      },
      modeType:{
       default:''
+     },
+     isJumpNext:{
+        default:true,
+     },
+     isAddSort:{
+        default:false,
      },
      listData:{
        default:{
@@ -84,7 +91,8 @@ export default{
    },
    mounted(){
        this.setTitle(); 
-       if(this.webposition=='resturant')this.sort(0);
+       console.log(this.webposition);
+       if(this.webposition=='resturant'||this.webposition=='separation'||this.webposition=='artificial')this.sort(0);
    },
    methods:{
      jump(name){ 
@@ -122,6 +130,7 @@ export default{
                 thirdTitle:[this.$t('turnoveract'),this.$t('onduty'),this.$t('turnoverper')]
               }
            }
+           console.log(this.showTitle)
      },
      sort(index){  //对列表数据进行排序
        let newArr=[...this.showData];
@@ -156,6 +165,7 @@ export default{
 }
 </script>
 <style lang="less" scoped> 
+.padRight0{padding-right:0 !important}
 [data-dpr="1"]{
                   .iconfont{
                                     font-size:12px;

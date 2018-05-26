@@ -56,7 +56,7 @@ module.exports={
 	groupin:'集团内排名第',
 	area:'区域内排名第',
 	laboarcost:'人工成本',
-	laboarcostper:'人工成本率',
+	laboarcostper:'成本率',
 	turnover:'离职率',
 	turnoverper:'离职率', //对应人力二级页面表头
 	onduty:'在岗人数',

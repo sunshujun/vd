@@ -79,7 +79,7 @@ module.exports={
 	all:'All',
 	unit:{
 	     home:'',
-	     million:'M￥',
+	     million:'10K￥',
 	     yuan:'￥',
 	     year:'Y',
 	     month:'M',

@@ -48,6 +48,7 @@ export default{
   methods:{
     changeTime(time){
           this.time=time;
+          window.selectTime=time;
           this.getData();
     },
     changeMode(mode){

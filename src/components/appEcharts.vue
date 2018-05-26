@@ -29,6 +29,9 @@ export default{
        echartId:{
             default:'echartArea',
        },
+       isSep:{
+        default:false, //离职率使用折线图和柱状图叠加
+       },
        option:{
         type:Object,
         default:()=>{
@@ -60,7 +63,6 @@ export default{
   return{
                 myChart:null,
                 xMonthcn:['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'],
-                /*xMonthen:['January','February','March','April','May','June','July','August','September','October','November','December'],*/
                 xMonthen:['Jan','Feb','Mar','Apr','May','June','July','Aug','Sept','Oct','Nov','Dec'],
         colorLinear:[{
                     type:'linear',
@@ -93,7 +95,7 @@ export default{
                     colorStops:[{
                        offset:1,color:'#fff'
                     },{
-                       offset:0,color:'##f60'
+                       offset:0,color:'#f60'
                     }]
                  },{
                     type:'linear',
@@ -219,6 +221,7 @@ export default{
              this.optionLine.tooltip.textStyle.fontSize=20;
             this.optionLine.legend.textStyle.fontSize=20;
        }
+       /*处理合并在一起的实际和预测值*/
        if(this.option.data[0]&&this.option.data[0].isTwo){
          this.optionLine.color=["#009eff","#19ff00","#f60","#909"];
          data=[...this.option.data];
@@ -234,7 +237,7 @@ export default{
              }
          }
          for(let z=0;z<two.data.length;z++){  //取预测值
-             if(z>two.startIndex-2){
+             if(z>two.startIndex-2&two.data.length!=two.startIndex){  //如果数组内全为实际值，则预测存空
                   data2.push(two.data[z]);
              }else{
                   data2.push('');
@@ -242,7 +245,7 @@ export default{
          }
          for(let t=0;t<two.startIndex+1;t++){  //取实际值那个点
              if(t==two.startIndex){
-                  data3.push(two.total);
+                  data3.push(two.total?two.total:'');
              }else{
                   data3.push('');
              }
@@ -289,20 +292,42 @@ export default{
         }
        }
        data.forEach((item,index)=>{
-          let json={
-                name:item.name,
-                type:'line',
-                smooth: that.option.isSmooth,
-                data:item.data,
-                z:index,
-          };
+          let json;
+          if(!this.isSep){
+               json={
+                  name:item.name,
+                  type:'line',
+                  smooth: that.option.isSmooth,
+                  data:item.data,
+                  z:index,
+               }
+          }else{
+              this.optionLine.xAxis.boundaryGap=true;
+              if(item.name=='主动离职率%'||item.name=='Active%'||item.name=='被动离职率%'||item.name=='Passive%'){
+                  json={
+                      name:item.name,
+                      type:'bar', 
+                      stack: '总量',
+                      data:item.data,
+                      z:index,
+                   }
+              }else{
+                   json={
+                      name:item.name,
+                      type:'line',
+                      smooth: that.option.isSmooth,
+                      data:item.data,
+                      z:index,
+                   }
+              }
+          }
          if(dpr==3){
              json.symbolSize=12
          }else{
              json.symbolSize=8
          }
          if(that.option.isFilling){
-                if(!(item.name=='预算'||item.name=='Budget'||item.name=='同期'||item.name=='LYA')){
+                if(!(item.name=='预算'||item.name=='Budget'||item.name=='同期'||item.name=='LYA'||item.name=='离职率'||item.name=='Turnover%')){
                     json.areaStyle= {color:this.colorLinear[index]};
                 }
           }

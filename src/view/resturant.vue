@@ -26,6 +26,8 @@
              :time="time"
              :modeType="modeType"
              :height="height"
+             :webposition="'resturant'"
+             :isAddSort="true"
              ></app-table-resturant>
       </div>
  </div>
@@ -152,6 +154,7 @@ let day=timeNow.getDate()>9?timeNow.getDate():'0'+(timeNow.getDate()-1);
         },
        changeTime(time){
            this.time=time;
+           window.selectTime=time;
            this.getData(); 
         },
         changeMode(mode){

@@ -30,7 +30,7 @@
        		<span class="font18">{{modeName}}</span>
        	</li>
        	<li>
-       		<p class="font24">{{showData.detail[1]}}<span class="font14">%</span></p>
+       		<p :class="['font24',parseInt(showData.detail[1])<100?'color-red':'']">{{parseInt(showData.detail[1])}}<span class="font14">%</span></p>
        		<span class="font18">{{$t("complete")}}</span>
        	</li>
        	<li>
@@ -38,7 +38,7 @@
        		<span class="font18">{{$t("ver")}}</span>
        	</li>
        	<li>
-       		<p :class="['font24',parseInt(showData.detail[3])<0?'color-red':'']">{{showData.detail[3]}}<span class="font14">%</span></p>
+       		<p :class="['font24',parseInt(showData.detail[3])<0?'color-red':'']">{{parseInt(showData.detail[3])}}<span class="font14">%</span></p>
        		<span class="font18">{{$t("yoyGrowth")}}</span>
        	</li>
        </ul>
@@ -135,7 +135,20 @@ export default{
                  let url='/getFoodData.do?date='+this.time+'&budget_type='+this.modeType+'&hotel_type='+(this.tilteNow=='all'?'':this.tilteNow)+'&hotel_name='+this.tilteNow+'&account_code='+this.account_code+'&type='+cookie.get('langSet')
                   this.$axios.get(url).then((res)=>{
                      if(res.data.code==200){
-                          this.resturantData[this.modeType][this.tilteNow]=res.data.data;
+                           if(res.data.data.date&&res.data.data.date!=this.time){
+                              this.time=res.data.data.date;
+                              /*let _this=this;
+                              this.$vux.confirm.show({
+                                title:'消息提示',
+                                content:'当天数据为空，是否展示最近有数据的一天',
+                                confirmText:_this.$t('sure'),
+                                cancelText:_this.$t('cancel'),
+                                onConfirm(){
+                                  Object.assign(_this.resturantData[_this.modeType][_this.tilteNow],res.data.data);
+                                }
+                              })*/
+                          }
+                           this.resturantData[this.modeType][this.tilteNow]=res.data.data;
                      }
                   })
           }
@@ -242,8 +255,8 @@ export default{
         }
         span:nth-child(1){
           display: inline-block;
-          width: 1.26666667rem/* 95px */;
-          margin-right:.06666667rem/* 5px */;
+          width: 1.6rem/* 120px */;
+          margin-right:.26666667rem/* 20px */;
         }
         span:nth-child(2){
           display: inline-block;

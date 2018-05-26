@@ -14,7 +14,7 @@
            <app-ecahrt :option="echartOption1" :echartId="'echartArea1'" :echartStyle="{height:'4.06666667rem',width:'8.86666667rem'}"></app-ecahrt>
         </div>
         <div class="echartWrap">
-           <app-ecahrt :option="echartOption2" :echartId="'echartArea2'" :echartStyle="{height:'4.06666667rem',width:'8.86666667rem'}"></app-ecahrt>
+           <app-ecahrt :option="echartOption2" :echartId="'echartArea2'" :echartStyle="{height:'4.06666667rem',width:'8.86666667rem'}" :isSep="true"></app-ecahrt>
         </div>
         <ul class="twoMode clearfix font24">
         	<li @click="jump('artificial')"><span>{{$t("laboarcost")}}</span></li>
@@ -29,12 +29,12 @@ import appHeader from '../components/appHeader';
 import {cookie} from 'vux';
 let timeNow=new Date();
 let year=timeNow.getFullYear();
-let month=(timeNow.getMonth()+1)>9?(timeNow.getMonth()+1):'0'+(timeNow.getMonth()+1); 
+let month=(timeNow.getMonth()+1)>9?(timeNow.getMonth()+1):'0'+(timeNow.getMonth()+1);
 export default{
  name:'appManpower',
  data(){
      return{
-      time:year+month+'', //时间
+      time:window.selectTime.length<7?window.selectTime:window.selectTime.substr(0,6), //时间
       modeType:'group',
       dataArt:[],
       dataSep:[]
@@ -44,7 +44,7 @@ export default{
         echartOption1(){
                return {
                      isSmooth:true,
-                     isFilling:true,
+                     isFilling:false,
                      isShowHead:true,
                      time:this.time,
                      modeType:'group',
@@ -56,12 +56,12 @@ export default{
              },
           echartOption2(){
                return {
-                     isSmooth:true,
-                     isFilling:true,
-                     isShowHead:true,
+                     isSmooth:false,
+                     isFilling:false,
+                     isShowHead:true, 
                      time:this.time,
                      headIcon:'user',
-                     title:this.time.substr(0,4)+this.$t('HrEchartTitle1'),
+                     title:this.time.substr(0,4)+this.$t('HrEchartTitle2'),
                      data:this.dataSep,
                      xAxis:['1月','6月','12月']
                   }
@@ -70,6 +70,7 @@ export default{
  methods:{
       changeTime(time){
         this.time=time;
+        window.selectTime=time;
         this.getData();
       },
        changeMode(mode){
@@ -83,8 +84,21 @@ export default{
         let url='getHumenEchart.do?date='+this.time+'&type='+cookie.get('langSet')+'&budget_type='+this.modeType;
         this.$axios.get(url).then((res)=>{
           if (res.data.code==200){
-               this.dataSep=res.data.data.echartData;
-               this.dataArt=res.data.data.echartData1; 
+                if(res.data.data.date&&res.data.data.date!=this.time){
+                              this.time=res.data.data.date;
+                              /*let _this=this;
+                              this.$vux.confirm.show({
+                                title:'消息提示',
+                                content:'当天数据为空，是否展示最近有数据的一天',
+                                confirmText:_this.$t('sure'),
+                                cancelText:_this.$t('cancel'),
+                                onConfirm(){
+                                  Object.assign(_this.resturantData[_this.modeType][_this.tilteNow],res.data.data);
+                                }
+                              })*/
+                }
+               this.dataSep=res.data.data.echartData1;
+               this.dataArt=res.data.data.echartData;
           }
         })
       },
@@ -94,6 +108,18 @@ export default{
            'app-ecahrt':appEcharts,
   },
   mounted(){
+    if(this.time.length==6){
+      let preMonth=parseInt(this.time.substr(4,2))-1;
+      let year=parseInt(this.time.substr(0,4));
+      if(year==new Date().getFullYear()){
+                if(preMonth==0){
+                  this.time=(year-1)+""+"12"
+                }else{
+                  this.time=year+""+(preMonth>9?preMonth:("0"+preMonth));
+                }
+                window.selectTime=this.time;
+      }
+    }
     this.getData();
   }
 }
