@@ -224,7 +224,7 @@ export default{
                                   Object.assign(_this.resturantData[_this.modeType][_this.tilteNow],res.data.data);
                                 }
                               })*/
-                          } 
+                          }
                            this.resturantData[this.modeType][this.tilteNow]=res.data.data; 
                      }
                   }).catch((error)=>{

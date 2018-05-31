@@ -130,7 +130,6 @@ export default{
                 thirdTitle:[this.$t('turnoveract'),this.$t('onduty'),this.$t('turnoverper')]
               }
            }
-           console.log(this.showTitle)
      },
      sort(index){  //对列表数据进行排序
        let newArr=[...this.showData];
@@ -144,7 +143,8 @@ export default{
                           [newArr[i],newArr[j]]=[newArr[j],newArr[i]];
                         }
                   }else{
-                        [newArr[i],newArr[n-1]]=[newArr[n-1],newArr[i]];
+                        n--;
+                        [newArr[i],newArr[n]]=[newArr[n],newArr[i]];
                         break;
                   }
             }else{
@@ -153,7 +153,7 @@ export default{
                           [newArr[i],newArr[j]]=[newArr[j],newArr[i]];
                         }
                   }else{
-                        [newArr[i],newArr[j]]=[newArr[j],newArr[i]]; 
+                       [newArr[i],newArr[j]]=[newArr[j],newArr[i]]; 
                   }
             }
           }
