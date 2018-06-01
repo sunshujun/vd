@@ -12,7 +12,7 @@
                  <span class="font18">{{title[tilteNow]}}</span>
                   -->
                   <div class="left" @click="jumpToSecond(account_code)">
-                      <p :class="['font46',parseInt(showData.detail[2])<0?'color-red':'']">{{showData.sum|formatNum}}<span class="font14 unit">{{$t("unit.million")}}</span></p>
+                      <p :class="['font46',showData.detail[2]<0?'color-red':'']">{{showData.sum|formatNum}}<span class="font14 unit">{{$t("unit.million")}}</span></p>
                       <span class="font18">{{title[tilteNow]=='All'?'Total':title[tilteNow]}}</span>
                  </div>
                  <div class="right">
@@ -30,15 +30,15 @@
        		<span class="font18">{{modeName}}</span>
        	</li>
        	<li>
-       		<p :class="['font24',parseInt(showData.detail[1])<100?'color-red':'']">{{parseInt(showData.detail[1])}}<span class="font14">%</span></p>
+       		<p :class="['font24',showData.detail[1]<100?'color-red':'']">{{showData.detail[1]}}<span class="font14">%</span></p>
        		<span class="font18">{{$t("complete")}}</span>
        	</li>
        	<li>
-       		<p :class="['font24',parseInt(showData.detail[2])<0?'color-red':'']">{{showData.detail[2]|formatNum}}<span class="font14 ">{{$t("unit.million")}}</span></p>
+       		<p :class="['font24',showData.detail[2]<0?'color-red':'']">{{showData.detail[2]|formatNum}}<span class="font14 ">{{$t("unit.million")}}</span></p>
        		<span class="font18">{{$t("ver")}}</span>
        	</li>
        	<li>
-       		<p :class="['font24',parseInt(showData.detail[3])<0?'color-red':'']">{{parseInt(showData.detail[3])}}<span class="font14">%</span></p>
+       		<p :class="['font24',showData.detail[3]<0?'color-red':'']">{{showData.detail[3]}}<span class="font14">%</span></p>
        		<span class="font18">{{$t("yoyGrowth")}}</span>
        	</li>
        </ul>

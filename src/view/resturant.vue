@@ -37,10 +37,10 @@
  import appTableResturant from '../components/appTableResturant';
  import appTitle from '../components/appTitle';
  import {cookie} from 'vux';
- let timeNow=new Date();
-let year=timeNow.getFullYear();
-let month=(timeNow.getMonth()+1)>9?(timeNow.getMonth()+1):'0'+(timeNow.getMonth()+1);
-let day=timeNow.getDate()>9?timeNow.getDate():'0'+(timeNow.getDate()-1);
+ let timeNow=new Date(Date.parse(new Date())-24*3600*1000);  //时间回退一天
+        let year=timeNow.getFullYear();
+        let month=(timeNow.getMonth()+1)>9?(timeNow.getMonth()+1):'0'+(timeNow.getMonth()+1);
+        let day=timeNow.getDate()>9?timeNow.getDate():'0'+timeNow.getDate();
  export default{
     name:'resturant',
     data(){
