@@ -60,10 +60,10 @@
     <script type="text/javascript">
         window.langgroup='cn';  //切换中英文
         window.baseURL='/DAP/';  //设置请求的baseurl
-        let timeNow=new Date();
+        let timeNow=new Date(Date.parse(new Date())-24*3600*1000);  //时间回退一天
         let year=timeNow.getFullYear();
         let month=(timeNow.getMonth()+1)>9?(timeNow.getMonth()+1):'0'+(timeNow.getMonth()+1);
-        let day=timeNow.getDate()>9?(timeNow.getDate()-1):'0'+(timeNow.getDate()-1);
+        let day=timeNow.getDate()>9?timeNow.getDate():'0'+timeNow.getDate();
         window.selectTime=year+month+day+'';
     </script>
     <title>万达移动端</title>
